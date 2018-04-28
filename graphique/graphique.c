@@ -50,7 +50,13 @@ int graphiqueDestruction(graphiqueT * graphique)
 
 int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface, int taille, int fond)
 	{
+	int retour = 0;
 	(void)taille;
+	int largeur;
+	int hauteur;
+	SDL_GetWindowSize((*interface).fenetre, &largeur, &hauteur);
+	(*graphique).largeur=largeur;
+	(*graphique).hauteur=hauteur;
 		// Création du rendu
 	(*graphique).rendu = SDL_CreateRenderer((*interface).fenetre, -1 , 
 					SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
@@ -89,36 +95,59 @@ int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface, int 
 
 	//SDL_Texture *masse;
 
+	SDL_Surface *panneau = 0;
+
+	panneau = SDL_LoadBMP("./graphique/sicp.bmp");
+	if (!panneau)
+		{
+		fprintf(stderr,"Erreur chargement image, sicp.bmp : %s\n",SDL_GetError());
+		retour = 1;
+		}
+	(*graphique).SiCP = SDL_CreateTextureFromSurface((*graphique).rendu, panneau);
+	SDL_FreeSurface(panneau);
+	if ((*graphique).SiCP == 0)
+		{
+		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
+		retour = 2;
+		}
+
 	SDL_Surface *image = 0;
 
 	image = SDL_LoadBMP("./graphique/mobile.bmp");
 	if (!image)
 		{
 		fprintf(stderr,"Erreur chargement image, mobile.bmp : %s\n",SDL_GetError());
-		return 0;
+		retour = 3;
 		}
 	(*graphique).masse = SDL_CreateTextureFromSurface((*graphique).rendu, image);
 	SDL_FreeSurface(image);
 	if ((*graphique).masse == 0)
 		{
 		fprintf(stderr,"grapheInitialisation : Erreur creation texture : %s\n",SDL_GetError());
-		return 0;
+		retour = 4;
 		}
-
 		// Activation de la transparence
 	//SDL_BLENDMODE_NONE || SDL_BLENDMODE_BLEND || SDL_BLENDMODE_ADD || SDL_BLENDMODE_MOD
 	if(SDL_SetTextureBlendMode((*graphique).masse, SDL_BLENDMODE_MOD) < 0)
 		fprintf(stderr, "grapheInitialisation : Erreur SDL_SetRenderDrawBlendMode : %s.", SDL_GetError());
 
-	return 0;
+
+	return retour;
 }
 
 int graphiqueNettoyage(graphiqueT * graphique)
 	{
 	//int fond = (*graphique).fond;
-	SDL_SetRenderDrawColor((*graphique).rendu, (*graphique).fond.r, (*graphique).fond.g, (*graphique).fond.b, 0);//SDL_ALPHA_OPAQUE
-	SDL_RenderClear((*graphique).rendu);
+	//SDL_SetRenderDrawColor((*graphique).rendu, (*graphique).fond.r, (*graphique).fond.g, (*graphique).fond.b, 0);//SDL_ALPHA_OPAQUE
 	//SDL_SetRenderDrawColor((*graphique).rendu, 255-(*graphique).fond.r, 255-(*graphique).fond.g, 255-(*graphique).fond.b, 0);//SDL_ALPHA_OPAQUE
+	SDL_RenderClear((*graphique).rendu);
+	return 0;
+	}
+
+int graphiqueCommandes(graphiqueT * graphique)
+	{
+	SDL_Rect coordonnee = {0, 0, (*graphique).largeur, (*graphique).hauteur};
+	SDL_RenderCopy((*graphique).rendu, (*graphique).SiCP, NULL, &coordonnee);
 	return 0;
 	}
 

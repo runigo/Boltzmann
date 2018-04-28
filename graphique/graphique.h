@@ -33,6 +33,7 @@ termes.
 #define _GRAPHIQUE_
 
 #include "graphe.h"
+#include "commandes.h"
 #include "interface.h"
 
 
@@ -51,6 +52,8 @@ struct GraphiqueT {
 	SDL_Texture *SiCP;
 	int taille;
 
+	int largeur;
+	int hauteur;
 };
 typedef struct GraphiqueT graphiqueT;
 
@@ -60,6 +63,7 @@ int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface, int 
 int graphiqueNettoyage(graphiqueT * graphique);
 int graphiqueMiseAJour(graphiqueT * graphique);
 
+int graphiqueCommandes(graphiqueT * graphique);
 void graphiquePenduleSupport(graphiqueT * graphique, grapheT * graphe);
 void graphiquePendule(graphiqueT * graphique, grapheT * graphe);
 

@@ -1,9 +1,9 @@
 /*
-Copyright septembre 2017, Stephan Runigo
+Copyright avril 2018, Stephan Runigo
 runigo@free.fr
-SiCP 1.3.7  simulateur de chaîne de pendules
-Ce logiciel est un programme informatique servant à simuler l'équation
-d'une chaîne de pendules et à en donner une représentation graphique.
+Boltzmann 2.0 simulateur pour les sciences physiques
+Ce logiciel est un programme informatique servant à simuler différents 
+phénomènes physiques et à en donner une représentation graphique.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -29,33 +29,12 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _GRAPHE_
-#define _GRAPHE_
+#include "menu.h"
 
-#include "point.h"
+void menuChangeSupport(menuT * menu)
+	{
+	(void)menu;
+	return;
+	}
 
-typedef struct GrapheT grapheT;
-	struct GrapheT
-		{
-		pointsT * premier;
-		int supporX[14];
-		int supporY[14];
-
-		int rouge;
-		int vert;
-		int bleu;
-
-		int fond;
-		int support;
-
-		int dessous;	// Vue de dessous
-		int arriere;	// Vue de derrière
-		int gauche;		// Vue de gauche
-		};
-
-int grapheCreation(grapheT * graphe, int nombre);
-//int grapheInitialise(grapheT * graphe, int rouge, int bleu, int vert, int fond);
-void grapheSuppression(grapheT * graphe);
-void grapheChangeSupport(grapheT * graphe);
-
-#endif
+//////////////////////////////////////////////////////////////////

@@ -54,18 +54,21 @@ int donneesControleur(controleurT * control)
 
 		fprintf(stderr, " Création du système\n");
 	systemeCreation(&(*control).systeme);
-	changeFormeDissipation(&(*control).systeme, 2);
+	changeFormeDissipation(&(*control).systeme, 1);
 		fprintf(stderr, " Initialisation du graphe\n");
 	donneesGraphe(&(*control).graphe, &(*control).options);
 
 		fprintf(stderr, " Création du graphe\n");
 	grapheCreation(&(*control).graphe, (*control).options.nombre);
 
+		fprintf(stderr, " Initialisation des commmandes\n");
+	commandesInitialise(&(*control).commandes, LARGEUR, HAUTEUR);
+
 		//fprintf(stderr, " Initialisation de la projection\n");
 		//fprintf(stderr, "projectionInitialiseCouleurs\n");
 	projectionInitialiseCouleurs(&(*control).projection, 222, 111, 222, 255);// r, v, b, fond
 		//fprintf(stderr, "projectionInitialiseLongueurs\n");
-	projectionInitialiseLongueurs(&(*control).projection, HAUTEUR/3, LARGEUR*0.7, 0.47);// hauteur, largeur, ratio de distance
+	projectionInitialiseLongueurs(&(*control).projection, HAUTEUR/3, LARGEUR*0.7, 0.61);// hauteur, largeur, ratio de distance
 		//fprintf(stderr, "projectionInitialisePointDeVue\n");
 	projectionInitialisePointDeVue(&(*control).projection, PI/2 - 0.27, PI/2 + 0.21);//r=facteur de distance, psi, phi
 	//projectionInitialisePointDeVue(&(*control).projection, 3*LARGEUR, 0.0, 0.0);//r, psi, phi
@@ -125,14 +128,15 @@ int donneesSysteme(systemeT * systeme, optionsT * options)
 	(*systeme).moteur.frequence=5.0;	// Fréquence du générateur de signaux
 	(*systeme).moteur.phi=0;
 
-
 		// Caractéristique de la chaîne
+
 	(*systeme).libreFixe = 0;	// 0 periodique, 1 libre, 2 fixe
 	(*systeme).nombre = (*options).nombre;		// nombre de pendule
 	(*systeme).equation = (*options).equation;	// 1 : pendule pesant, 2 : linéarisation
 												// 3 : corde, 4 : dioptre
 
 		// Paramètres physiques
+
 	(*systeme).gravitation = 9.81;
 	(*systeme).masse = 1.0;
 	(*systeme).longueur = 9.81/4/PI/PI; // = 25 cm => période = 1 s
@@ -140,9 +144,7 @@ int donneesSysteme(systemeT * systeme, optionsT * options)
 	(*systeme).couplage = 11.1 * (*systeme).nombre;
 	(*systeme).dephasage = (*options).soliton * 2 * PI;
 
-
-
-
+/*
 	if((*systeme).equation == 3 || (*systeme).equation == 4)
 		{		 // donneeCorde;
 		(*systeme).couplage = (*systeme).couplage * 10.0;
@@ -150,7 +152,7 @@ int donneesSysteme(systemeT * systeme, optionsT * options)
 		(*systeme).libreFixe = 2;
 		(*systeme).moteur.josephson=0.0;
 		}
-
+*/
 	return 0;
 	}
 

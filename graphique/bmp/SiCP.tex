@@ -13,7 +13,7 @@
 \usepackage[utf8]{inputenc}
 %\usepackage[greek, frenchb]{babel}
 \PreviewEnvironment{tikzpicture}
-\setlength\PreviewBorder{5pt}%
+\setlength\PreviewBorder{0pt}%
 %%%>
 \begin{comment}
 :Title: TeXtronics oscilloscope
@@ -29,6 +29,7 @@ the signals and the positions of the different controls.
 
 \begin{document}
 \def\scl{0.6}%scaling factor of the picture
+\sffamily
 \begin{tikzpicture}[
   scale=\scl,
   panneaucontroles/.style={yellow!30!brown!20!,rounded corners,draw=black,thick},
@@ -40,22 +41,22 @@ the signals and the positions of the different controls.
 %
 %        ECRAN
 %
-    \fill[white,draw=black,thick](-28,0.5) rectangle (28,33);
+    \fill[white,draw=black,thick](-21,0.7) rectangle (28,30.9);
 %
 %      PANNEAU  COUPLAGE
 %
-  \fill[panneaucontroles] (19.7,26) rectangle (27.5,32.5);
-  \begin{scope}[xshift=22.5 cm,yshift=28.9cm]
-    \fill[petitbouton] (3.5,-1.8) circle (0.3cm);
-    \node[scale=\scl] at (3.5,-1.1) {\large{Mixte}};
-    \fill[petitbouton] (3.5,-0.4) circle (0.3cm);
-    \node[scale=\scl] at (3.5,0.3) {\large{Fixe}};
-    \fill[petitbouton] (3.5,1.0) circle (0.3cm);
-    \node[scale=\scl] at (3.5,1.7) {\large{Libre}};
-    \fill[petitbouton] (3.5,2.4) circle (0.3cm);
-    \node[scale=\scl] at (3.5,3.1) {\large{Périodique}};
+  \fill[panneaucontroles] (20.1,24.2) rectangle (27.6,30.4);
+  \begin{scope}[xshift=22.5 cm,yshift=26.9cm]
+    \fill[petitbouton] (3.5,-2.1) circle (0.3cm);
+    \node[scale=\scl] at (3.5,-1.4) {\Large{Mixte}};
+    \fill[petitbouton] (3.5,-0.7) circle (0.3cm);
+    \node[scale=\scl] at (3.5,0.0) {\Large{Fixe}};
+    \fill[petitbouton] (3.5,0.7) circle (0.3cm);
+    \node[scale=\scl] at (3.5,1.4) {\Large{Libre}};
+    \fill[petitbouton] (3.5,2.1) circle (0.3cm);
+    \node[scale=\scl] at (3.5,2.8) {\Large{Périodique}};
 
-    \node[scale=\scl] at (0,2.6) {\Large \textbf{Couplage}};
+    \node[scale=\scl] at (0,2.6) {\LARGE \textbf{Couplage}};
     \clip[rounded corners] (-2,-2) rectangle (2,2);
     \fill[black!30!,rounded corners,draw=black,thick] (-2,-2) rectangle (2,2);
     \draw[very thick,rounded corners](-2,-2) rectangle (2,2);
@@ -67,16 +68,16 @@ the signals and the positions of the different controls.
 %
 %      PANNEAU  DISSIPATION
 %
-  \fill[panneaucontroles] (19.7,19) rectangle (27.5,25.5);
-  \begin{scope}[xshift=22.5 cm,yshift=21.4cm]
-    \fill[petitbouton] (3.5,-1.1) circle (0.3cm);
-    \node[scale=\scl] at (3.5,-0.4) {\large{Extrémité}};
-    \fill[petitbouton] (3.5,0.7) circle (0.3cm);
-    \node[scale=\scl] at (3.5,1.4) {\large{Nulle}};
-    \fill[petitbouton] (3.5,2.5) circle (0.3cm);
-    \node[scale=\scl] at (3.5,3.2) {\large{Uniforme}};
+  \fill[panneaucontroles] (20.1,18) rectangle (27.6,23.7);
+  \begin{scope}[xshift=22.7 cm,yshift=20.5cm]
+    \fill[petitbouton] (3.5,-1.5) circle (0.3cm);
+    \node[scale=\scl] at (3.5,-0.8) {\Large{Extrémité}};
+    \fill[petitbouton] (3.5,0.1) circle (0.3cm);
+    \node[scale=\scl] at (3.5,0.9) {\Large{Nulle}};
+    \fill[petitbouton] (3.5,1.7) circle (0.3cm);
+    \node[scale=\scl] at (3.5,2.6) {\Large{Uniforme}};
 
-    \node[scale=\scl] at (0,2.6) {\Large \textbf{Dissipation}};
+    \node[scale=\scl] at (0,2.6) {\LARGE \textbf{Dissipation}};
     \clip[rounded corners] (-2,-2) rectangle (2,2);
     \fill[black!30!,rounded corners,draw=black,thick] (-2,-2) rectangle (2,2);
     \draw[very thick,rounded corners](-2,-2) rectangle (2,2);
@@ -89,18 +90,18 @@ the signals and the positions of the different controls.
 %
 %      PANNEAU  JOSEPHSON
 %
-  \fill[panneaucontroles] (19.7,12) rectangle (27.5,18.5);
-  \begin{scope}[xshift=22.5 cm,yshift=14.8cm]
-    \fill[petitbouton] (3.5,-1.8) circle (0.3cm);
-    \node[scale=\scl] at (3.5,-1.1) {\large{Gauche}};
-    \fill[petitbouton] (3.5,-0.4) circle (0.3cm);
-    \node[scale=\scl] at (3.5,0.3) {\large{Droite}};
-    \fill[petitbouton] (3.5,1.0) circle (0.3cm);
-    \node[scale=\scl] at (3.5,1.7) {\large{Arrêt}};
-    \fill[petitbouton] (3.5,2.4) circle (0.3cm);
-    \node[scale=\scl] at (3.5,3.1) {\large{Marche}};
+  \fill[panneaucontroles] (20.1,11.3) rectangle (27.6,17.5);
+  \begin{scope}[xshift=22.7 cm,yshift=14.1cm]
+    \fill[petitbouton] (3.5,-2.1) circle (0.3cm);
+    \node[scale=\scl] at (3.5,-1.4) {\Large{Gauche}};
+    \fill[petitbouton] (3.5,-0.7) circle (0.3cm);
+    \node[scale=\scl] at (3.5,0.0) {\Large{Droite}};
+    \fill[petitbouton] (3.5,0.7) circle (0.3cm);
+    \node[scale=\scl] at (3.5,1.4) {\Large{Arrêt}};
+    \fill[petitbouton] (3.5,2.1) circle (0.3cm);
+    \node[scale=\scl] at (3.5,2.8) {\Large{Marche}};
 
-    \node[scale=\scl] at (0,2.6) {\Large \textbf{Josephson}};
+    \node[scale=\scl] at (0,2.6) {\LARGE \textbf{Josephson}};
     \clip[rounded corners] (-2,-2) rectangle (2,2);
     \fill[black!30!,rounded corners,draw=black,thick] (-2,-2) rectangle (2,2);
     \draw[very thick,rounded corners](-2,-2) rectangle (2,2);
@@ -114,20 +115,24 @@ the signals and the positions of the different controls.
 %
 %      PANNEAU  MOTEUR
 %
-  \fill[panneaucontroles] (19.7,1) rectangle (27.5,11.5);
+  \fill[panneaucontroles] (20.2,1.1) rectangle (27.5,10.8);
  % \fill[panneaucontroles] (20,13) rectangle (27,19.5);
-  \begin{scope}[xshift=26 cm,yshift=3.2cm]
+  \begin{scope}[xshift=26.2 cm,yshift=2.0cm]
     \fill[petitbouton] (0,0) circle (0.3cm);
-    \node[scale=\scl] at (0,0.7) {\large{Impulsion}};
-    \fill[petitbouton] (0,1.8) circle (0.3cm);
-    \node[scale=\scl] at (0,2.5) {\large{Carré}};
-    \fill[petitbouton] (0,3.6) circle (0.3cm);
-    \node[scale=\scl] at (0,4.3) {\large{Sinus}};
-    \fill[petitbouton] (0,5.4) circle (0.3cm);
-    \node[scale=\scl] at (0,6.1) {\large{Arrêt}};
+    \node[scale=\scl] at (0,0.7) {\Large{Anti F.}};
+    \fill[petitbouton] (0,1.4) circle (0.3cm);
+    \node[scale=\scl] at (0,2.1) {\Large{Fluxon}};
+    \fill[petitbouton] (0,2.8) circle (0.3cm);
+    \node[scale=\scl] at (0,3.5) {\Large{Impulsion}};
+    \fill[petitbouton] (0,4.2) circle (0.3cm);
+    \node[scale=\scl] at (0,4.9) {\Large{Carré}};
+    \fill[petitbouton] (0,5.8) circle (0.3cm);
+    \node[scale=\scl] at (0,6.5) {\Large{Sinus}};
+    \fill[petitbouton] (0,7.2) circle (0.3cm);
+    \node[scale=\scl] at (0,7.9) {\Large{Arrêt}};
   \end{scope}
-  \begin{scope}[xshift=22.5 cm,yshift=8.4cm,scale=0.85]
-    \node[scale=\scl] at (0,2.6) {\Large \textbf{Amplitude}};
+  \begin{scope}[xshift=22.7 cm,yshift=7.9cm,scale=0.85]
+    \node[scale=\scl] at (0,2.6) {\LARGE \textbf{Amplitude}};
     \clip[rounded corners] (-2,-2) rectangle (2,2);
     \fill[black!30!,rounded corners,draw=black,thick] (-2,-2) rectangle (2,2);
     \draw[very thick,rounded corners](-2,-2) rectangle (2,2);
@@ -136,8 +141,8 @@ the signals and the positions of the different controls.
     \foreach \i/\j in {15/8,45/7,75/6,105/5,135/4,165/3,195/2,225/1,255/,285/,315/10,345/9} \node[scale=\scl,black] at (\i:1.7) {\j};
     \fill[blue!30!black!60!,draw=black,thick] (0,0) circle (0.8cm);
   \end{scope}
-  \begin{scope}[xshift=22.5 cm,yshift=3.8cm,scale=0.85]
-    \node[scale=\scl] at (0,2.6) {\Large \textbf{Fréquence}};
+  \begin{scope}[xshift=22.7 cm,yshift=3.3cm,scale=0.85]
+    \node[scale=\scl] at (0,2.6) {\LARGE \textbf{Fréquence}};
     \clip[rounded corners] (-2,-2) rectangle (2,2);
     \fill[black!30!,rounded corners,draw=black,thick] (-2,-2) rectangle (2,2);
     \draw[very thick,rounded corners](-2,-2) rectangle (2,2);

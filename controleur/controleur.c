@@ -47,9 +47,12 @@ int controleurClavier(controleurT * controleur);
 int controleurClavier2(controleurT * controleur);
 int controleurClavier3(controleurT * controleur);
 
+int controleurCommandes(controleurT * controleur);
+
 int controleurSouris(controleurT * controleur);
 int controleurDefile(controleurT * controleur);
 void controleurBoutonSouris(controleurT * controleur, int appui);
+void controleurAfficheSouris(controleurT * controleur);
 
 void controleurChangeMode(controleurT * controleur);
 void controleurChangeVitesse(controleurT * controleur, float facteur);
@@ -144,8 +147,21 @@ int controleurProjection(controleurT * controleur)
 		//void SDL_GetWindowSize(SDL_Window* window, int* w, int* h)
 	SDL_GetWindowSize((*controleur).interface.fenetre, &largeur, &hauteur);
 
+		// Réinitialisation des commandes
+	if((*controleur).graphique.largeur!=largeur || (*controleur).graphique.hauteur!=hauteur)
+		{
+		(*controleur).graphique.largeur=largeur;
+		(*controleur).graphique.hauteur=hauteur;
+		commandesInitialise(&(*controleur).commandes, largeur, hauteur);
+		}
+
+	int x, y;
+	SDL_PumpEvents();
+	SDL_GetMouseState(&x,&y);
+	(*controleur).commandes.sourisX=x;
+	(*controleur).commandes.sourisY=y;
+
 		//fprintf(stderr, "projectionInitialiseLongueurs\n");
-	//projectionInitialiseLongueurs(&(*control).projection, HAUTEUR/3, LARGEUR*0.7, 2.1);
 	projectionInitialiseLongueurs(&(*controleur).projection, hauteur*RATIO_H_L, largeur, (*controleur).projection.pointDeVue.r);
 
 	projectionSystemChaineDePendule(&(*controleur).systeme, &(*controleur).projection, &(*controleur).graphe);
@@ -168,7 +184,7 @@ int controleurConstructionGraphique(controleurT * controleur)
 	graphiqueNettoyage(&(*controleur).graphique);
 
 		//fprintf(stderr, "Dessin des Commandes\n");
-	//graphiqueCommandes(&(*controleur).graphique);
+	graphiqueCommandes(&(*controleur).graphique);
 
 		//fprintf(stderr, "Dessin des graphes\n");
 	if((*controleur).graphe.support==0)
@@ -394,11 +410,12 @@ int controleurClavier(controleurT * controleur)
 			(*controleur).systeme.equation = 2;break;
 		case SDLK_F3: // Corde
 			(*controleur).systeme.equation = 3;break;
-		case SDLK_F4: // Corde asymétrique
-			(*controleur).systeme.equation = 4;break;
 */
   // Afficher les observables
 
+		case SDLK_F4: // Corde asymétrique
+			controleurAfficheSouris(controleur);
+			break;
 		case SDLK_F5:
 			observablesAfficheEnergie(&(*controleur).systeme);
 			break;
@@ -545,6 +562,12 @@ int controleurClavierCtrl(controleurT * controleur)
 	return (*controleur).sortie;
 	}
 
+int controleurCommandes(controleurT * controleur)
+	{
+	(void)controleur;
+	return 0;
+	}
+
 int controleurSouris(controleurT * controleur)
 	{
 	float x, y;
@@ -598,8 +621,23 @@ int controleurDefile(controleurT * controleur)
 
 void controleurBoutonSouris(controleurT * controleur, int appui)
 	{
-	(*controleur).appui=appui;
+	int zoneBouton=0;
 
+	(*controleur).appui=appui;
+	
+	if(appui==1 && zoneBouton==1)
+		{
+		controleurCommandes(controleur);
+		}
 	return;
 	}
+
+void controleurAfficheSouris(controleurT * controleur)
+	{
+	fprintf(stderr, "(*controleur).commandes.sourisX = %d\n", (*controleur).commandes.sourisX);
+	fprintf(stderr, "(*controleur).commandes.sourisY = %d\n", (*controleur).commandes.sourisY);
+
+	return ;
+	}
+
 //////////////////////////////////////////////////////////////////////////////////////

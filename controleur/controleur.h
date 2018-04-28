@@ -51,6 +51,8 @@ typedef struct ControleurT controleurT;
 
 		grapheT graphe;		//	Graphe de la chaîne
 
+		commandesT commandes;	//	Graphe des commandes
+
 		interfaceT interface;	//	Fenêtre SDL
 
 		graphiqueT graphique;	//	Rendu SDL et graphisme
@@ -60,6 +62,8 @@ typedef struct ControleurT controleurT;
 		int sortie;	//	sortie de SiCP si > 0
 
 		int appui;	//	1 si le bouton de la souris est appuyé, 0 sinon.
+		int curseurX;	//	Position x de la souris.
+		int curseurY;	//	Position y de la souris.
 
 		int modeClavier;//	1 : commande de la chaîne, 2 : Graphisme, 3 : Sauvegarde
 

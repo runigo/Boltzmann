@@ -28,7 +28,7 @@
 # termes.
 
 CC=gcc
-EXEC=Boltzmann
+EXEC=boltzmann
 CFLAGS= -Wall -Wextra -Werror --std=c99
 #SDLFKAGS= `sdl-config --libs`
 #LDFLAGS= -Wall -Wextra -Werror --std=c99 -lm -lpthread
@@ -38,8 +38,8 @@ OBJDIR = ./obj
 
 all : $(EXEC)
 
-$(EXEC) : $(OBJDIR)/principale.o $(OBJDIR)/options.o $(OBJDIR)/donnees.o $(OBJDIR)/controleur.o $(OBJDIR)/projection.o $(OBJDIR)/graphique.o $(OBJDIR)/observables.o $(OBJDIR)/graphe.o $(OBJDIR)/horloge.o $(OBJDIR)/interface.o $(OBJDIR)/point.o $(OBJDIR)/vecteur.o $(OBJDIR)/change.o $(OBJDIR)/systeme.o $(OBJDIR)/moteurs.o $(OBJDIR)/chaine.o $(OBJDIR)/pendule.o
-	$(CC) -g $(OBJDIR)/principale.o $(OBJDIR)/options.o $(OBJDIR)/donnees.o $(OBJDIR)/controleur.o $(OBJDIR)/projection.o $(OBJDIR)/graphique.o $(OBJDIR)/observables.o $(OBJDIR)/graphe.o $(OBJDIR)/horloge.o $(OBJDIR)/interface.o $(OBJDIR)/point.o $(OBJDIR)/vecteur.o $(OBJDIR)/change.o $(OBJDIR)/systeme.o $(OBJDIR)/moteurs.o $(OBJDIR)/chaine.o $(OBJDIR)/pendule.o `sdl2-config --libs` $(LDFLAGS) -o $(EXEC)
+$(EXEC) : $(OBJDIR)/principale.o $(OBJDIR)/options.o $(OBJDIR)/donnees.o $(OBJDIR)/controleur.o $(OBJDIR)/projection.o $(OBJDIR)/menu.o $(OBJDIR)/graphique.o $(OBJDIR)/observables.o $(OBJDIR)/graphe.o $(OBJDIR)/commandes.o $(OBJDIR)/horloge.o $(OBJDIR)/interface.o $(OBJDIR)/point.o $(OBJDIR)/vecteur.o $(OBJDIR)/change.o $(OBJDIR)/systeme.o $(OBJDIR)/moteurs.o $(OBJDIR)/chaine.o $(OBJDIR)/pendule.o
+	$(CC) -g $(OBJDIR)/principale.o $(OBJDIR)/options.o $(OBJDIR)/donnees.o $(OBJDIR)/controleur.o $(OBJDIR)/projection.o $(OBJDIR)/menu.o $(OBJDIR)/graphique.o $(OBJDIR)/observables.o $(OBJDIR)/graphe.o $(OBJDIR)/commandes.o $(OBJDIR)/horloge.o $(OBJDIR)/interface.o $(OBJDIR)/point.o $(OBJDIR)/vecteur.o $(OBJDIR)/change.o $(OBJDIR)/systeme.o $(OBJDIR)/moteurs.o $(OBJDIR)/chaine.o $(OBJDIR)/pendule.o `sdl2-config --libs` $(LDFLAGS) -o $(EXEC)
 
 $(OBJDIR)/principale.o : controleur/principale.c controleur/principale.h
 	$(CC) -c -g controleur/principale.c $(CFLAGS) -o $@
@@ -62,11 +62,17 @@ $(OBJDIR)/horloge.o : graphique/horloge.c graphique/horloge.h
 $(OBJDIR)/interface.o : graphique/interface.c graphique/interface.h
 	$(CC) -c -g graphique/interface.c $(CFLAGS) -o $@
 
+$(OBJDIR)/menu.o : graphique/menu.c graphique/menu.h
+	$(CC) -c -g graphique/menu.c $(CFLAGS) -o $@
+
 $(OBJDIR)/graphique.o : graphique/graphique.c graphique/graphique.h
 	$(CC) -c -g graphique/graphique.c $(CFLAGS) -o $@
 
 $(OBJDIR)/graphe.o : graphique/graphe.c graphique/graphe.h
 	$(CC) -c -g graphique/graphe.c $(CFLAGS) -o $@
+
+$(OBJDIR)/commandes.o : graphique/commandes.c graphique/commandes.h
+	$(CC) -c -g graphique/commandes.c $(CFLAGS) -o $@
 
 $(OBJDIR)/point.o : graphique/point.c graphique/point.h
 	$(CC) -c -g graphique/point.c $(CFLAGS) -o $@

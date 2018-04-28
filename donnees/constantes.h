@@ -46,16 +46,19 @@ termes.
 #define PI 3.14159265359
 #define DEUXPI 6.28318530718
 
-#define LARGEUR 999 // Largeur de la fenêtre
+#define LARGEUR 958 // Largeur de la fenêtre
 #define FENETRE_X LARGEUR // Largeur de la fenêtre
-#define HAUTEUR 440 // Hauteur de la fenêtre
+#define HAUTEUR 589 // Hauteur de la fenêtre
 #define FENETRE_Y HAUTEUR // Hauteur de la fenêtre
 
-#define RATIO_H_L 0.536 // Ratio Largeur sur Hauteur de la chaîne
-#define RATIO_C_X 0.491 // Ratio Centrage X Sans Menu
-#define RATIO_C_Y 0.751 // Ratio Centrage Y Sans Menu
-//#define RATIO_C_X 0.391 // Ratio Centrage X Avec Menu
-//#define RATIO_C_Y 0.591 // Ratio Centrage Y Avec Menu
+#define BOUTON_COMMANDES 17 // Nombres de petits boutons
+#define ROTATIF_COMMANDES 5 // Nombre de boutons rotatifs
+
+#define RATIO_H_L 0.436 // Ratio Hauteur sur Largeur de la chaîne
+//#define RATIO_C_X 0.491 // Ratio Centrage X Sans Menu
+//#define RATIO_C_Y 0.751 // Ratio Centrage Y Sans Menu
+#define RATIO_C_X 0.391 // Ratio Centrage X Avec Menu
+#define RATIO_C_Y 0.851 // Ratio Centrage Y Avec Menu
 #define RATIO_R_MIN 0.21 // Ratio Distance minimal
 #define RATIO_R_MAX 0.99 // Ratio Distance maximal
 
