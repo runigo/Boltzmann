@@ -1,9 +1,9 @@
 /*
-Copyright avril 2018, Stephan Runigo
+Copyright mai 2018, Stephan Runigo
 runigo@free.fr
-SiCP 2.2.1 simulateur de chaîne de pendules
-Ce logiciel est un programme informatique servant à simuler l'équation
-d'une chaîne de pendules et à en donner une représentation graphique.
+Boltzmann 1.0 simulateur pour les sciences physiques
+Ce logiciel est un programme informatique servant à simuler différents 
+phénomènes physiques et à en donner une représentation graphique.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -14,7 +14,7 @@ de modification et de redistribution accordés par cette licence, il n'est
 offert aux utilisateurs qu'une garantie limitée. Pour les mêmes raisons,
 seule une responsabilité restreinte pèse sur l'auteur du programme, le
 titulaire des droits patrimoniaux et les concédants successifs.
-A cet égard  l'attention de l'utilisateur est attirée sur les risques
+A cet égard l'attention de l'utilisateur est attirée sur les risques
 associés au chargement, à l'utilisation, à la modification et/ou au
 développement et à la reproduction du logiciel par l'utilisateur étant
 donné sa spécificité de logiciel libre, qui peut le rendre complexe à
@@ -61,8 +61,6 @@ int donneesControleur(controleurT * control)
 		fprintf(stderr, " Création du graphe\n");
 	grapheCreation(&(*control).graphe, (*control).options.nombre);
 
-		fprintf(stderr, " Initialisation des commmandes\n");
-	commandesInitialise(&(*control).commandes, LARGEUR, HAUTEUR);
 
 		//fprintf(stderr, " Initialisation de la projection\n");
 		//fprintf(stderr, "projectionInitialiseCouleurs\n");
@@ -76,9 +74,13 @@ int donneesControleur(controleurT * control)
 		fprintf(stderr, " Initialisation SDL\n");
 	interfaceInitialisationSDL();
 		//fprintf(stderr, " Création de l'interface SDL\n");
-	interfaceInitialisation(&(*control).interface, (*control).options.fond);
+	interfaceInitialisation(&(*control).interface);
 		//fprintf(stderr, " Création du rendu\n");
 	graphiqueInitialisation(&(*control).graphique, &(*control).interface, TAILLE, (*control).options.fond);
+
+		fprintf(stderr, " Initialisation des commmandes\n");
+	commandesInitialiseBoutons(&(*control).commandes, FENETRE_X, FENETRE_Y);
+	commandesInitialiseSouris(&(*control).commandes, LARGEUR/2, HAUTEUR/2, 1);
 
 		fprintf(stderr, " Initialisation horloge SDL\n");
 	horlogeCreation(&(*control).horloge);

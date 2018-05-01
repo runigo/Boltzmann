@@ -1,7 +1,7 @@
 /*
-Copyright avril 2018, Stephan Runigo
+Copyright mai 2018, Stephan Runigo
 runigo@free.fr
-Boltzmann 2.0 simulateur pour les sciences physiques
+Boltzmann 1.0 simulateur pour les sciences physiques
 Ce logiciel est un programme informatique servant à simuler différents 
 phénomènes physiques et à en donner une représentation graphique.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
@@ -11,16 +11,16 @@ de la licence CeCILL telle que diffusée par le CEA, le CNRS et l'INRIA
 sur le site "http://www.cecill.info".
 En contrepartie de l'accessibilité au code source et des droits de copie,
 de modification et de redistribution accordés par cette licence, il n'est
-offert aux utilisateurs qu'une garantie limitée.  Pour les mêmes raisons,
+offert aux utilisateurs qu'une garantie limitée. Pour les mêmes raisons,
 seule une responsabilité restreinte pèse sur l'auteur du programme, le
 titulaire des droits patrimoniaux et les concédants successifs.
-A cet égard  l'attention de l'utilisateur est attirée sur les risques
-associés au chargement,  à l'utilisation,  à la modification et/ou au
+A cet égard l'attention de l'utilisateur est attirée sur les risques
+associés au chargement, à l'utilisation, à la modification et/ou au
 développement et à la reproduction du logiciel par l'utilisateur étant
 donné sa spécificité de logiciel libre, qui peut le rendre complexe à
 manipuler et qui le réserve donc à des développeurs et des professionnels
-avertis possédant  des  connaissances  informatiques approfondies. Les
-utilisateurs sont donc invités à charger  et  tester  l'adéquation du
+avertis possédant des connaissances informatiques approfondies. Les
+utilisateurs sont donc invités à charger et tester l'adéquation du
 logiciel à leurs besoins dans des conditions permettant d'assurer la
 sécurité de leurs systèmes et ou de leurs données et, plus généralement,
 à l'utiliser et l'exploiter dans les mêmes conditions de sécurité.
@@ -32,31 +32,33 @@ termes.
 #ifndef _COMMANDES_
 #define _COMMANDES_
 
-#include "point.h"
+#include "../donnees/constantes.h"
 
 typedef struct CommandesT commandesT;
 	struct CommandesT
 		{
-		int rotatifsCentre;
-		int rotatifsGauche;
-		int rotatifsDroite;
+		int rotatifs; // Zone des boutons rotatifs
+		int rotatifsCentre; // Positon X des boutons rotatifs
+		int rotatifCentre[ROTATIF_COMMANDES]; // Positon Y des boutons rotatifs
+		int rotatifX; // Rayon suivant X
+		int rotatifY; // Rayon suivant Y
 
-		int rotatifCentre[ROTATIF_COMMANDES];
-		int rotatifSup[ROTATIF_COMMANDES];
-		int rotatifInf[ROTATIF_COMMANDES];
+		int boutons; // Zone des petits boutons
+		int boutonsCentre; // Positon X des petits boutons
+		int boutonCentre[BOUTON_COMMANDES]; // Positon Y des petits boutons
+		int boutonX; // Rayon suivant X
+		int boutonY; // Rayon suivant Y
 
-		int boutonsCentre;
-		int boutonsGauche;
-		int boutonsDroite;
+		int sourisX; // position X de la souris
+		int sourisY; // position Y de la souris
 
-		int boutonCentre[BOUTON_COMMANDES];
-		int boutonSup[BOUTON_COMMANDES];
-		int boutonInf[BOUTON_COMMANDES];
-
-		int sourisX;
-		int sourisY;
+		int sourisGauche; // position X de la souris - demiBouton
+		int sourisDroite; // position X de la souris + demiBouton
+		int sourisHaut; // position Y de la souris - demiBouton
+		int sourisBas; // position Y de la souris + demiBouton
 		};
 
-int commandesInitialise(commandesT * commandes, int largeur, int hauteur);
+int commandesInitialiseBoutons(commandesT * commandes, int largeur, int hauteur);
+int commandesInitialiseSouris(commandesT * commandes, int sourisX, int sourisY, int zone);
 
 #endif

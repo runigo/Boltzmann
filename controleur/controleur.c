@@ -152,14 +152,13 @@ int controleurProjection(controleurT * controleur)
 		{
 		(*controleur).graphique.largeur=largeur;
 		(*controleur).graphique.hauteur=hauteur;
-		commandesInitialise(&(*controleur).commandes, largeur, hauteur);
+		commandesInitialiseBoutons(&(*controleur).commandes, largeur, hauteur);
 		}
 
 	int x, y;
 	SDL_PumpEvents();
 	SDL_GetMouseState(&x,&y);
-	(*controleur).commandes.sourisX=x;
-	(*controleur).commandes.sourisY=y;
+	commandesInitialiseSouris(&(*controleur).commandes, x, y, 1);
 
 		//fprintf(stderr, "projectionInitialiseLongueurs\n");
 	projectionInitialiseLongueurs(&(*controleur).projection, hauteur*RATIO_H_L, largeur, (*controleur).projection.pointDeVue.r);
