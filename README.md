@@ -83,9 +83,9 @@ permettent la rotation du point de vue de l'observateur.
 
 LICENCE
 
-Copyright avril 2018, Stephan Runigo
+Copyright mai 2018, Stephan Runigo
 runigo@free.fr
-Boltzmann 2.0 simulateur pour les sciences physiques
+Boltzmann 1.0 simulateur pour les sciences physiques
 Ce logiciel est un programme informatique servant à simuler différents 
 phénomènes physiques et à en donner une représentation graphique.
 d'une chaîne de pendules et à en donner une représentation graphique.
