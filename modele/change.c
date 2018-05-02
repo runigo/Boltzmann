@@ -122,7 +122,7 @@ void changeDissipation(systemeT * systeme, float facteur)
 	iter = (*systeme).premier;
 
 	float dissipation = (*systeme).dissipation * facteur;
-	float dissipationMaximale = DISSIPATION_MAX_DT/(*systeme).moteur.dt;
+	float dissipationMaximale = DISSIPATION_MAX_DT/(*systeme).moteurs.dt;
 
 	if(dissipation < dissipationMaximale && dissipation > DISSIPATION_MIN)
 		{
@@ -176,7 +176,7 @@ void changeFormeDissipation(systemeT * systeme, int forme)
 			{
 			dissipation = iter->pendule.dissipation;
 			}
-		penduleInitialiseAlpha(&(iter->pendule), dissipation, (*systeme).moteur.dt);
+		penduleInitialiseAlpha(&(iter->pendule), dissipation, (*systeme).moteurs.dt);
 		iter=iter->suivant;
 		}
 	while(iter!=(*systeme).premier);
@@ -231,7 +231,7 @@ void changeLimite(systemeT * systeme)
 		couplage=(*systeme).couplage;
 		}
 
-	penduleInitialiseKapa(&(*systeme).premier->precedent->pendule, couplage, (*systeme).moteur.dt);
+	penduleInitialiseKapa(&(*systeme).premier->precedent->pendule, couplage, (*systeme).moteurs.dt);
 
 	printf("Couplage dernier = %6.3f\n", couplage);
 

@@ -65,7 +65,7 @@ double observablesEnergieCinetiqueSystem(systemeT * systeme)
 	double ectotal=0.0;
 	do
 		{
-		ectotal=ectotal+observablesEnergieCinetiquePendul(&(*iter).pendule, (*systeme).moteur.dt);
+		ectotal=ectotal+observablesEnergieCinetiquePendul(&(*iter).pendule, (*systeme).moteurs.dt);
 		iter=iter->suivant;
 		}
 	while(iter!=(*systeme).premier);
@@ -78,7 +78,7 @@ double observablesEnergieCouplageSystem(systemeT * systeme)
 	double epctotal=0.0;
 	do
 		{
-		epctotal=epctotal + observablesEnergieCouplagePendul(&(*iter).pendule, &(*iter->suivant).pendule, (*systeme).moteur.dt);
+		epctotal=epctotal + observablesEnergieCouplagePendul(&(*iter).pendule, &(*iter->suivant).pendule, (*systeme).moteurs.dt);
 		iter=iter->suivant;
 		}
 	while(iter!=(*systeme).premier);
@@ -91,7 +91,7 @@ double observablesEnergieGravitationSystem(systemeT * systeme)
 	double epptotal=0.0;
 	do
 		{
-		epptotal=epptotal + observablesEnergieGravitationPendul(&(*iter).pendule, (*systeme).moteur.dt);
+		epptotal=epptotal + observablesEnergieGravitationPendul(&(*iter).pendule, (*systeme).moteurs.dt);
 		iter=iter->suivant;
 		}
 	while(iter!=(*systeme).premier);
@@ -104,7 +104,7 @@ double observablesEnergieHarmoniqueSystem(systemeT * systeme)
 	double ephtotal=0.0;
 	do
 		{
-		ephtotal=ephtotal + observablesEnergieHarmoniquePendul(&(*iter).pendule, (*systeme).moteur.dt);
+		ephtotal=ephtotal + observablesEnergieHarmoniquePendul(&(*iter).pendule, (*systeme).moteurs.dt);
 		iter=iter->suivant;
 		}
 	while(iter!=(*systeme).premier);

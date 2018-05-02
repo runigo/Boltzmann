@@ -33,28 +33,70 @@ termes.
 
 int commandesInitialiseBoutons(commandesT * commandes, int largeur, int hauteur)
 	{
-
-	(*commandes).rotatifs=(int)(0.846555323591*largeur); // Zone des boutons rotatifs // 811
+		 // Zone des boutons rotatifs // 811
+	(*commandes).rotatifs=(int)(0.846555323591*largeur);
 		// BOUTONS ROTATIFS SUIVANT X
 	(*commandes).rotatifX=(int)(0.0344467640919*largeur); // 823       D-G = 33 / 958 // Rayon suivant X
 	(*commandes).rotatifsCentre=(int)(0.893528183716*largeur); // 856 // Positon X des boutons rotatifs
-
 		// BOUTONS ROTATIFS SUIVANT Y
 	(*commandes).rotatifY=(int)(0.0560271646859*hauteur); // 33 / 589 // Rayon suivant Y
-	(*commandes).rotatifCentre[0]=(int)(0.1324278438*hauteur); // 78  / 589
-	(*commandes).rotatifCentre[1]=(int)(0.344651952462*hauteur); // 203 Positon Y des boutons rotatifs
-	(*commandes).rotatifCentre[2]=(int)(0.555178268251*hauteur); // 327
-	(*commandes).rotatifCentre[3]=(int)(0.765704584041*hauteur); // 451
-	(*commandes).rotatifCentre[4]=(int)(0.920203735144*hauteur); // 542
+	(*commandes).rotatifCentre[0]=(int)(0.1324278438*hauteur); // 78  / 589	Couplage
+	(*commandes).rotatifCentre[1]=(int)(0.344651952462*hauteur); // 203	Dissipation Positon Y des boutons rotatifs
+	(*commandes).rotatifCentre[2]=(int)(0.555178268251*hauteur); // 327	Josephson
+	(*commandes).rotatifCentre[3]=(int)(0.765704584041*hauteur); // 451	Amplitude
+	(*commandes).rotatifCentre[4]=(int)(0.920203735144*hauteur); // 542	Fréquence
 
-	(*commandes).boutons=(int)(0.949895615866*largeur); // Zone des petits boutons // 910
+		 // Zone des petits boutons // 910
+	(*commandes).boutons=(int)(0.949895615866*largeur);
+		// PETITS BOUTONS SUIVANT X
+	(*commandes).boutonX=(int)(0.0208768267223*largeur); // Rayon suivant X // 20 / 958
+	(*commandes).boutonsCentre=(int)(0.965553235908*largeur); // 920 // Positon X des petits boutons
+		// PETITS BOUTONS SUIVANT Y
+	(*commandes).boutonY=(int)(0.0152144*largeur); // Rayon suivant Y // 11 / 723
+	(*commandes).boutonCentre[0]=(int)(0.0567082*hauteur); // 41 / 723	Périodique
+	(*commandes).boutonCentre[1]=(int)(0.102351*hauteur); // 74	Libre
+	(*commandes).boutonCentre[2]=(int)(0.149378*hauteur); // 108 	Fixe // Positon Y des petits boutons
+	(*commandes).boutonCentre[3]=(int)(0.197787*hauteur); // 143	Mixte
+	(*commandes).boutonCentre[4]=(int)(0.283541*hauteur); // 205	Uniforme
+	(*commandes).boutonCentre[5]=(int)(0.337483*hauteur); // 244	Nulle
+	(*commandes).boutonCentre[6]=(int)(0.391425*hauteur); // 283	Extrémité
+	(*commandes).boutonCentre[7]=(int)(0.484094*hauteur); // 350	Marche
+	(*commandes).boutonCentre[8]=(int)(0.531120*hauteur); // 384	Arrêt
+	(*commandes).boutonCentre[9]=(int)(0.576763*hauteur); // 417	Droite
+	(*commandes).boutonCentre[10]=(int)(0.623790*hauteur); // 451	Gauche
+	(*commandes).boutonCentre[11]=(int)(0.717842*hauteur); // 519	Arrêt
+	(*commandes).boutonCentre[12]=(int)(0.764869*hauteur); // 553	Sinus
+	(*commandes).boutonCentre[13]=(int)(0.817427*hauteur); // 591	Carré
+	(*commandes).boutonCentre[14]=(int)(0.864454*hauteur); // 625	Impulsion
+	(*commandes).boutonCentre[15]=(int)(0.911480*hauteur); // 659	Fluxon
+	(*commandes).boutonCentre[16]=(int)(0.958506*hauteur); // 693	Anti F.
+
+	return 0;
+	}
+/*
+int commandesInitialiseBoutons01(commandesT * commandes, int largeur, int hauteur)
+	{
+		 // Zone des boutons rotatifs // 811
+	(*commandes).rotatifs=(int)(0.846555323591*largeur);
+		// BOUTONS ROTATIFS SUIVANT X
+	(*commandes).rotatifX=(int)(0.0344467640919*largeur); // 823       D-G = 33 / 958 // Rayon suivant X
+	(*commandes).rotatifsCentre=(int)(0.893528183716*largeur); // 856 // Positon X des boutons rotatifs
+		// BOUTONS ROTATIFS SUIVANT Y
+	(*commandes).rotatifY=(int)(0.0560271646859*hauteur); // 33 / 589 // Rayon suivant Y
+	(*commandes).rotatifCentre[0]=(int)(0.1324278438*hauteur); // 78  / 589	Couplage
+	(*commandes).rotatifCentre[1]=(int)(0.344651952462*hauteur); // 203	Dissipation Positon Y des boutons rotatifs
+	(*commandes).rotatifCentre[2]=(int)(0.555178268251*hauteur); // 327	Josephson
+	(*commandes).rotatifCentre[3]=(int)(0.765704584041*hauteur); // 451	Amplitude
+	(*commandes).rotatifCentre[4]=(int)(0.920203735144*hauteur); // 542	Fréquence
+
+		 // Zone des petits boutons // 910
+	(*commandes).boutons=(int)(0.949895615866*largeur);
 		// PETITS BOUTONS SUIVANT X
 	(*commandes).boutonX=(int)(0.0208768267223*largeur); // Rayon suivant X // 20 / 958
 	(*commandes).boutonsCentre=(int)(0.969728601253*largeur); // 920 // Positon X des petits boutons
-
 		// PETITS BOUTONS SUIVANT Y
 	(*commandes).boutonY=(int)(0.0339558573854*largeur); // Rayon suivant Y // 20 / 589
-	(*commandes).boutonCentre[0] = 6;//(int)(0.0543293718166*hauteur); // 32	Périodique
+	(*commandes).boutonCentre[0]=(int)(0.0543293718166*hauteur); // 32	Périodique
 	(*commandes).boutonCentre[1]=(int)(0.105263157895*hauteur); // 62	Libre
 	(*commandes).boutonCentre[2]=(int)(0.1494057725*hauteur); // 88 	Fixe // Positon Y des petits boutons
 	(*commandes).boutonCentre[3]=(int)(0.195246179966*hauteur); // 115	Mixte
@@ -74,20 +116,26 @@ int commandesInitialiseBoutons(commandesT * commandes, int largeur, int hauteur)
 
 	return 0;
 	}
-
-int commandesInitialiseSouris(commandesT * commandes, int sourisX, int sourisY, int zone)
+*/
+int commandesInitialiseSouris(commandesT * commandes, int sourisX, int sourisY)
 	{
 	int rayonX;
 	int rayonY;
-	if(zone == 1) // Zone des boutons rotatifs
-		{
-		rayonX=(*commandes).rotatifX;
-		rayonY=(*commandes).rotatifY;
-		}
-	else // Zone des petits boutons
+
+		//int boutons; // Positon X de la zone des petits boutons
+	if(sourisX>(*commandes).boutons) // Zone des petits boutons
 		{
 		rayonX=(*commandes).boutonX;
 		rayonY=(*commandes).boutonY;
+		}
+	else // Zone des boutons rotatifs
+		{
+		//int rotatifs; // Positon X de la zone des boutons rotatifs
+		if(sourisX>(*commandes).rotatifs) // Zone des boutons rotatifs
+			{
+			rayonX=(*commandes).rotatifX;
+			rayonY=(*commandes).rotatifY;
+			}
 		}
 		// POSITION DE LA SOURIS
 	(*commandes).sourisX = sourisX; // position X de la souris
@@ -99,6 +147,20 @@ int commandesInitialiseSouris(commandesT * commandes, int sourisX, int sourisY, 
 	(*commandes).sourisBas = sourisY+rayonY; // position Y de la souris + RayonBoutonY
 
 	return 0;
+	}
+
+int commandeBoutons(commandesT * commandes)
+	{
+	int i;
+	if((*commandes).boutonsCentre>(*commandes).sourisGauche && (*commandes).boutonsCentre<(*commandes).sourisDroite)
+		{
+		for(i=0;i<BOUTON_COMMANDES;i++)
+			{
+			if((*commandes).boutonCentre[i]>(*commandes).sourisHaut && (*commandes).boutonCentre[i]<(*commandes).sourisBas)
+				return i;
+			}
+		}
+	return -1;
 	}
 
 //////////////////////////////////////////////////////////////////

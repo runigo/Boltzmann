@@ -37,17 +37,22 @@ termes.
 typedef struct CommandesT commandesT;
 	struct CommandesT
 		{
-		int rotatifs; // Zone des boutons rotatifs
+		int rotatifs; // Positon X de la zone des boutons rotatifs
 		int rotatifsCentre; // Positon X des boutons rotatifs
 		int rotatifCentre[ROTATIF_COMMANDES]; // Positon Y des boutons rotatifs
 		int rotatifX; // Rayon suivant X
 		int rotatifY; // Rayon suivant Y
 
-		int boutons; // Zone des petits boutons
+		int rotatifPositionX[ROTATIF_COMMANDES]; // Position du bouton rotatif
+		int rotatifPositionY[ROTATIF_COMMANDES];
+
+		int boutons; // Positon X de la zone des petits boutons
 		int boutonsCentre; // Positon X des petits boutons
 		int boutonCentre[BOUTON_COMMANDES]; // Positon Y des petits boutons
 		int boutonX; // Rayon suivant X
 		int boutonY; // Rayon suivant Y
+
+		int boutonEtat[BOUTON_COMMANDES]; // État du petit bouton
 
 		int sourisX; // position X de la souris
 		int sourisY; // position Y de la souris
@@ -59,6 +64,7 @@ typedef struct CommandesT commandesT;
 		};
 
 int commandesInitialiseBoutons(commandesT * commandes, int largeur, int hauteur);
-int commandesInitialiseSouris(commandesT * commandes, int sourisX, int sourisY, int zone);
+int commandesInitialiseSouris(commandesT * commandes, int sourisX, int sourisY);
+int commandeBoutons(commandesT * commandes);
 
 #endif

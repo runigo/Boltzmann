@@ -1,5 +1,5 @@
 /*
-Copyright avril 2018, Stephan Runigo
+Copyright mai 2018, Stephan Runigo
 runigo@free.fr
 Boltzmann 1.0 simulateur pour les sciences physiques
 Ce logiciel est un programme informatique servant à simuler différents 
@@ -14,7 +14,7 @@ de modification et de redistribution accordés par cette licence, il n'est
 offert aux utilisateurs qu'une garantie limitée. Pour les mêmes raisons,
 seule une responsabilité restreinte pèse sur l'auteur du programme, le
 titulaire des droits patrimoniaux et les concédants successifs.
-A cet égard  l'attention de l'utilisateur est attirée sur les risques
+A cet égard l'attention de l'utilisateur est attirée sur les risques
 associés au chargement, à l'utilisation, à la modification et/ou au
 développement et à la reproduction du logiciel par l'utilisateur étant
 donné sa spécificité de logiciel libre, qui peut le rendre complexe à
@@ -63,7 +63,7 @@ int graphiqueInitialisation(graphiqueT * graphique, interfaceT * interface, int 
 int graphiqueNettoyage(graphiqueT * graphique);
 int graphiqueMiseAJour(graphiqueT * graphique);
 
-int graphiqueCommandes(graphiqueT * graphique);
+int graphiqueCommandes(graphiqueT * graphique, commandesT * commandes);
 void graphiquePenduleSupport(graphiqueT * graphique, grapheT * graphe);
 void graphiquePendule(graphiqueT * graphique, grapheT * graphe);
 

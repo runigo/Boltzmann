@@ -40,7 +40,7 @@ typedef struct SystemeT systemeT;
 		{
 		chaineT * premier;	//	Premier pendule couplé
 
-		moteursT moteur;		//	Josephson, horloge
+		moteursT moteurs;		//	Josephson, horloge
 							//	Générateur de signal
 
 		int nombre;			//	Nombre de pendule

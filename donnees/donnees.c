@@ -42,48 +42,57 @@ termes.
 int donneesSysteme(systemeT * systeme, optionsT * options);
 int donneesGraphe(grapheT * graphe, optionsT * options);
 
-int donneesControleur(controleurT * control)
+int donneesControleur(controleurT * controleur)
 	{
 
-	(*control).sortie = 0;	// Sortie de SiCP si <> 0
-	(*control).appui = 0;	// Appuie sur la souris
-	(*control).modeClavier = 1;	//	1 : commande de la chaîne, 2 : Graphisme, 3 : Sauvegarde
+	(*controleur).sortie = 0;	// Sortie de SiCP si <> 0
+	(*controleur).appui = 0;	// Appuie sur la souris
+	(*controleur).modeClavier = 1;	//	1 : commande de la chaîne, 2 : Graphisme, 3 : Sauvegarde
 
 		fprintf(stderr, " Initialisation du système\n");
-	donneesSysteme(&(*control).systeme, &(*control).options);
+	donneesSysteme(&(*controleur).systeme, &(*controleur).options);
 
 		fprintf(stderr, " Création du système\n");
-	systemeCreation(&(*control).systeme);
-	changeFormeDissipation(&(*control).systeme, 1);
+	systemeCreation(&(*controleur).systeme);
+	changeFormeDissipation(&(*controleur).systeme, 1);
 		fprintf(stderr, " Initialisation du graphe\n");
-	donneesGraphe(&(*control).graphe, &(*control).options);
+	donneesGraphe(&(*controleur).graphe, &(*controleur).options);
 
 		fprintf(stderr, " Création du graphe\n");
-	grapheCreation(&(*control).graphe, (*control).options.nombre);
+	grapheCreation(&(*controleur).graphe, (*controleur).options.nombre);
 
 
 		//fprintf(stderr, " Initialisation de la projection\n");
 		//fprintf(stderr, "projectionInitialiseCouleurs\n");
-	projectionInitialiseCouleurs(&(*control).projection, 222, 111, 222, 255);// r, v, b, fond
+	projectionInitialiseCouleurs(&(*controleur).projection, 222, 111, 222, 255);// r, v, b, fond
 		//fprintf(stderr, "projectionInitialiseLongueurs\n");
-	projectionInitialiseLongueurs(&(*control).projection, HAUTEUR/3, LARGEUR*0.7, 0.61);// hauteur, largeur, ratio de distance
+	projectionInitialiseLongueurs(&(*controleur).projection, HAUTEUR/3, LARGEUR*0.7, 0.61);// hauteur, largeur, ratio de distance
 		//fprintf(stderr, "projectionInitialisePointDeVue\n");
-	projectionInitialisePointDeVue(&(*control).projection, PI/2 - 0.27, PI/2 + 0.21);//r=facteur de distance, psi, phi
-	//projectionInitialisePointDeVue(&(*control).projection, 3*LARGEUR, 0.0, 0.0);//r, psi, phi
+	projectionInitialisePointDeVue(&(*controleur).projection, PI/2 - 0.27, PI/2 + 0.21);//r=facteur de distance, psi, phi
+	//projectionInitialisePointDeVue(&(*controleur).projection, 3*LARGEUR, 0.0, 0.0);//r, psi, phi
 
 		fprintf(stderr, " Initialisation SDL\n");
 	interfaceInitialisationSDL();
 		//fprintf(stderr, " Création de l'interface SDL\n");
-	interfaceInitialisation(&(*control).interface);
+	interfaceInitialisation(&(*controleur).interface);
 		//fprintf(stderr, " Création du rendu\n");
-	graphiqueInitialisation(&(*control).graphique, &(*control).interface, TAILLE, (*control).options.fond);
+	graphiqueInitialisation(&(*controleur).graphique, &(*controleur).interface, TAILLE, (*controleur).options.fond);
 
+	int largeur;
+	int hauteur;
+	int x, y;
 		fprintf(stderr, " Initialisation des commmandes\n");
-	commandesInitialiseBoutons(&(*control).commandes, FENETRE_X, FENETRE_Y);
-	commandesInitialiseSouris(&(*control).commandes, LARGEUR/2, HAUTEUR/2, 1);
+	SDL_GetWindowSize((*controleur).interface.fenetre, &largeur, &hauteur);
+	(*controleur).graphique.largeur=largeur;
+	(*controleur).graphique.hauteur=hauteur;
+	commandesInitialiseBoutons(&(*controleur).commandes, largeur, hauteur);
+
+	SDL_PumpEvents();
+	SDL_GetMouseState(&x,&y);
+	commandesInitialiseSouris(&(*controleur).commandes, x, y);
 
 		fprintf(stderr, " Initialisation horloge SDL\n");
-	horlogeCreation(&(*control).horloge);
+	horlogeCreation(&(*controleur).horloge);
 
 	return 0;
 	}
@@ -118,17 +127,17 @@ int donneesSysteme(systemeT * systeme, optionsT * options)
 
 		// Initialisation du moteurs
 
-	(*systeme).moteur.dt = (*options).dt;	// discrétisation du temps
+	(*systeme).moteurs.dt = (*options).dt;	// discrétisation du temps
 
-	(*systeme).moteur.chrono = 0.0;
+	(*systeme).moteurs.chrono = 0.0;
 
-	(*systeme).moteur.courant=15.0;		// Mémoire courant Josephson si = 0
-	(*systeme).moteur.josephson=-3*(*options).dt*(*options).dt;
+	(*systeme).moteurs.courant=15.0;		// Mémoire courant Josephson si = 0
+	(*systeme).moteurs.josephson=-3*(*options).dt*(*options).dt;
 
-	(*systeme).moteur.generateur = 0;	// éteint, sinus, carre, impulsion
-	(*systeme).moteur.amplitude=0.3;		// Amplitude du générateur de signaux
-	(*systeme).moteur.frequence=5.0;	// Fréquence du générateur de signaux
-	(*systeme).moteur.phi=0;
+	(*systeme).moteurs.generateur = 0;	// éteint, sinus, carre, impulsion
+	(*systeme).moteurs.amplitude=0.3;		// Amplitude du générateur de signaux
+	(*systeme).moteurs.frequence=5.0;	// Fréquence du générateur de signaux
+	(*systeme).moteurs.phi=0;
 
 		// Caractéristique de la chaîne
 
@@ -152,7 +161,7 @@ int donneesSysteme(systemeT * systeme, optionsT * options)
 		(*systeme).couplage = (*systeme).couplage * 10.0;
 		(*systeme).gravitation = 0.0;
 		(*systeme).libreFixe = 2;
-		(*systeme).moteur.josephson=0.0;
+		(*systeme).moteurs.josephson=0.0;
 		}
 */
 	return 0;

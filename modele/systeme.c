@@ -85,7 +85,7 @@ void systemeInitialisePendule(systemeT * systeme)
 	float d=(*systeme).dissipation;
 	float c=(*systeme).couplage;
 	float g=(*systeme).gravitation;
-	float t=(*systeme).moteur.dt;
+	float t=(*systeme).moteurs.dt;
 	chaineT *iter=(*systeme).premier;
 
 	do
@@ -165,15 +165,15 @@ void systemeEvolution(systemeT * systeme, int duree)
 		}
 
 	//	Limite la valeur des paramètres croissants
-	if((*systeme).moteur.generateur==0)
+	if((*systeme).moteurs.generateur==0)
 		{
 		//	Rapproche la position du premier pendule de zéro
 		systemeJaugeZero(systeme);
 		}
 	else
 		{
-		//	Rapproche les compteurs du moteur de zéro
-		moteurJaugeZero(&(*systeme).moteur);
+		//	Rapproche les compteurs des moteurs de zéro
+		moteurJaugeZero(&(*systeme).moteurs);
 		}
 	return;
 	}
@@ -195,13 +195,13 @@ void systemeCouplage(systemeT * systeme)
 
 void systemeInertie(systemeT * systeme)
 	{//	Principe d'inertie appliqué au systeme
-	float courantJosephson = (*systeme).moteur.josephson;
-	float generateur = moteursGenerateur(&(*systeme).moteur);
+	float courantJosephson = (*systeme).moteurs.josephson;
+	float generateur = moteursGenerateur(&(*systeme).moteurs);
 
 			//	Cas des extrémitées
 			//  0 : periodiques 1 : libres, 2 : fixes, 3 libre-fixe, 4 fixe-libre
 		// Cas du premier pendule
-	if ((*systeme).moteur.generateur != 0)
+	if ((*systeme).moteurs.generateur != 0)
 		{
 		penduleInitialisePosition(&((*systeme).premier->pendule), generateur, generateur);
 		}
@@ -248,8 +248,8 @@ void systemeInertie(systemeT * systeme)
 void systemeIncremente(systemeT * systeme)
 	{//	incremente l'horloge, l'ancien et l'actuel etat du systeme
 
-	//(*systeme).moteur.horloge=(*systeme).moteur.horloge+(*systeme).moteur.dt;
-	(*systeme).moteur.chrono=(*systeme).moteur.chrono+(*systeme).moteur.dt;
+	//(*systeme).moteurs.horloge=(*systeme).moteurs.horloge+(*systeme).moteurs.dt;
+	(*systeme).moteurs.chrono=(*systeme).moteurs.chrono+(*systeme).moteurs.dt;
 
 	chaineT *iter;
 	iter=(*systeme).premier;

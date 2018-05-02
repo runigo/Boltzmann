@@ -34,6 +34,14 @@ termes.
 
 #include "systeme.h"
 
+typedef struct ObservableT observableT;
+	struct ObservableT
+		{
+
+		double energie;
+
+		};
+
 double observablesEnergieCinetiquePendul(penduleT * pendule, float dt);
 double observablesEnergieGravitationPendul(penduleT * pendule, float dt);
 double observablesEnergieHarmoniquePendul(penduleT * pendule, float dt);
