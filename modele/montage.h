@@ -1,9 +1,11 @@
+
 /*
 Copyright septembre 2017, Stephan Runigo
 runigo@free.fr
-SiCP 1.3  simulateur de chaîne de pendules
-Ce logiciel est un programme informatique servant à simuler l'équation
-d'une chaîne de pendules et à en donner une représentation graphique.
+SiGP 1.3.3  simulateur de gaz parfait
+Ce logiciel est un programme informatique servant à simuler un gaz parfait
+et à en donner une représentation graphique. Il permet d'observer une détente
+de Joule ainsi que des transferts thermiques avec des thermostats.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -29,20 +31,45 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _CHANGE_
-#define _CHANGE_
+#ifndef _MONTAGE_
+#define _MONTAGE_
 
-#include "systemePendules.h"
+#include "thermostat.h"
 
-// Variation des parametres
-void changeCouplage(systemePendulesT * systemePendules, float facteur);
-void changeGravitation(systemePendulesT * systemePendules, float facteur);
-void changeMasse(systemePendulesT * systemePendules, float facteur);
-void changeDissipation(systemePendulesT * systemePendules, float facteur);
-void changeFormeDissipation(systemePendulesT * systemePendules, int forme);
-	// 0 : supprime, 1 : uniforme, 2 : ajoute extrémite absorbante
+typedef struct MontageT montageT;
+	struct MontageT
+		{
+		thermostatT thermostat;
 
-void changeConditionsLimites(systemePendulesT * systemePendules, int libreFixe);
-void changeDephasage(systemePendulesT * systemePendules, float dephasage);
+		int largeur; // largeur = (LARGEUR_THERMO-MARGE)
+		int hauteur; // hauteur = (HAUTEUR_THERMO-MARGE)
+
+		int demiLargeur; // Demi largeur = (LARGEUR_THERMO-MARGE)/2
+		int demiHauteur; // Demi hauteur = (HAUTEUR_THERMO-MARGE)/2
+
+
+		int trou ; // Taille du trou = TROU
+		//int epaisseur; // Epaisseur de la cloison
+
+		int paroiCentrale; // 0 : pas de paroi centrale, 1 : Cloison, 2 : Maxwell. 
+/*
+		int pDROITE; //2*LARGEUR_THERMO Paroi droite
+		int pINFERIEUR;//2*HAUTEUR_THERMO Paroi inférieur
+
+		int pTROUplus;//(HAUTEUR_THERMO+TROU)/2 Paroi
+		int pTROUmoins;//(HAUTEUR_THERMO-TROU)/2 Paroi
+
+		int pCENTRE;//LARGEUR_THERMO/2 aroi centrale
+		int pCENTREdroit;// = LARGEUR_THERMO/2 + TAILLE Paroi centrale
+		int pCENTREgauche;// = LARGEUR_THERMO/2 - TAILLE Paroi centrale
+		int pCENTREdroitDouble;//Paroi centrale droit
+		int pCENTREgaucheDouble;//Paroi centrale gauche
+*/
+		};
+
+//void montageInitialise(montageT * montage);
+
+void montageChangeTrou(montageT * montage, float facteur);
+void montageChangeParoiCentrale(montageT * montage, int centrale);
 
 #endif

@@ -59,86 +59,86 @@ double observablesEnergieCouplagePendul(penduleT * pendule, penduleT * suivant, 
 	return ( - 0.5 * (*pendule).longueur * (*pendule).longueur * (*pendule).masse * (*pendule).kapa *  (x-y) * (x-y) / dt / dt);
 	}
 
-double observablesEnergieCinetiqueSystem(systemeT * systeme)
+double observablesEnergieCinetiqueSystem(systemePendulesT * systemePendules)
 	{
-	chaineT *iter=(*systeme).premier;
+	chaineT *iter=(*systemePendules).premier;
 	double ectotal=0.0;
 	do
 		{
-		ectotal=ectotal+observablesEnergieCinetiquePendul(&(*iter).pendule, (*systeme).moteurs.dt);
+		ectotal=ectotal+observablesEnergieCinetiquePendul(&(*iter).pendule, (*systemePendules).moteurs.dt);
 		iter=iter->suivant;
 		}
-	while(iter!=(*systeme).premier);
+	while(iter!=(*systemePendules).premier);
 	return ectotal;
 	}
 
-double observablesEnergieCouplageSystem(systemeT * systeme)
+double observablesEnergieCouplageSystem(systemePendulesT * systemePendules)
 	{
-	chaineT *iter=(*systeme).premier;
+	chaineT *iter=(*systemePendules).premier;
 	double epctotal=0.0;
 	do
 		{
-		epctotal=epctotal + observablesEnergieCouplagePendul(&(*iter).pendule, &(*iter->suivant).pendule, (*systeme).moteurs.dt);
+		epctotal=epctotal + observablesEnergieCouplagePendul(&(*iter).pendule, &(*iter->suivant).pendule, (*systemePendules).moteurs.dt);
 		iter=iter->suivant;
 		}
-	while(iter!=(*systeme).premier);
+	while(iter!=(*systemePendules).premier);
 	return epctotal;
 	}
 
-double observablesEnergieGravitationSystem(systemeT * systeme)
+double observablesEnergieGravitationSystem(systemePendulesT * systemePendules)
 	{
-	chaineT *iter=(*systeme).premier;
+	chaineT *iter=(*systemePendules).premier;
 	double epptotal=0.0;
 	do
 		{
-		epptotal=epptotal + observablesEnergieGravitationPendul(&(*iter).pendule, (*systeme).moteurs.dt);
+		epptotal=epptotal + observablesEnergieGravitationPendul(&(*iter).pendule, (*systemePendules).moteurs.dt);
 		iter=iter->suivant;
 		}
-	while(iter!=(*systeme).premier);
+	while(iter!=(*systemePendules).premier);
 	return epptotal;
 	}
 
-double observablesEnergieHarmoniqueSystem(systemeT * systeme)
+double observablesEnergieHarmoniqueSystem(systemePendulesT * systemePendules)
 	{
-	chaineT *iter=(*systeme).premier;
+	chaineT *iter=(*systemePendules).premier;
 	double ephtotal=0.0;
 	do
 		{
-		ephtotal=ephtotal + observablesEnergieHarmoniquePendul(&(*iter).pendule, (*systeme).moteurs.dt);
+		ephtotal=ephtotal + observablesEnergieHarmoniquePendul(&(*iter).pendule, (*systemePendules).moteurs.dt);
 		iter=iter->suivant;
 		}
-	while(iter!=(*systeme).premier);
+	while(iter!=(*systemePendules).premier);
 	return ephtotal;
 	}
 
-void  observablesAfficheEnergie(systemeT * systeme)
+void  observablesAfficheEnergie(systemePendulesT * systemePendules)
 	{
 	double eCouplage, eGravitation, eCinetique;
 
 		//printf("\nCalcul de l'énergie cinétique\n");
-	eCinetique=observablesEnergieCinetiqueSystem(systeme);
+	eCinetique=observablesEnergieCinetiqueSystem(systemePendules);
 	printf("\n  Energie cinétique   %12.9f\n", eCinetique);
 
 		//printf("Calcul de l'énergie de couplage\n");
-	eCouplage=observablesEnergieCouplageSystem(systeme);
+	eCouplage=observablesEnergieCouplageSystem(systemePendules);
 	printf("  Energie de couplage  %12.9f\n", eCouplage);
 
 		//	Pendule=1, Harmonique=2, Corde=3, Dioptre=4
-	if((*systeme).equation == 1)
+	if((*systemePendules).equation == 1)
 		{
 		//printf("Calcul de l'énergie de gravitation\n");
-		eGravitation=observablesEnergieGravitationSystem(systeme);
+		eGravitation=observablesEnergieGravitationSystem(systemePendules);
 		printf("  Energie de gravitation  %12.9f\n", eGravitation);
 		}
 
-	if((*systeme).equation == 2)
+	if((*systemePendules).equation == 2)
 		{
 		//printf("Calcul de l'énergie de raideur harmonique\n");
-		eGravitation=observablesEnergieHarmoniqueSystem(systeme);
+		eGravitation=observablesEnergieHarmoniqueSystem(systemePendules);
 		printf("  Energie  de raideur harmonique  %12.9f\n", eGravitation);
 		}
 
-	if((*systeme).equation == 3 || (*systeme).equation == 4)
+	if((*systemePendules).equation == 3 || (*systemePendules).equation == 4)
 		{
 		//printf("Calcul de l'énergie de raideur harmonique\n");
 		eGravitation=0.0;

@@ -32,7 +32,7 @@ termes.
 #ifndef _PROJECTION_
 #define _PROJECTION_
 
-#include "../modele/systeme.h"
+#include "../modele/systemePendules.h"
 #include "../graphique/graphe.h"
 #include "../graphique/commandes.h"
 
@@ -63,8 +63,8 @@ int projectionInitialiseCouleurs(projectionT * projection, int r, int v, int b, 
 int projectionInitialiseLongueurs(projectionT * projection, int hauteur, int largeur, float  perspective);
 int projectionInitialisePointDeVue(projectionT * projection, float psi, float phi);
 
-int projectionSystemeChaineDePendule(systemeT * systeme, projectionT * projection, grapheT * graphe);
-int projectionSystemeCommandes(systemeT * systeme, projectionT * projection, commandesT * commandes);
+int projectionSystemeChaineDePendule(systemePendulesT * systemePendules, projectionT * projection, grapheT * graphe);
+int projectionSystemeCommandes(systemePendulesT * systemePendules, projectionT * projection, commandesT * commandes);
 
 void projectionInitialiseAxeFixe(grapheT * fixe, int nombre);
 

@@ -39,7 +39,7 @@ termes.
 	//		Initialisation de la SDL
 
 
-int donneesSysteme(systemeT * systeme, optionsT * options);
+int donneesSysteme(systemePendulesT * systemePendules, optionsT * options);
 int donneesGraphe(grapheT * graphe, optionsT * options);
 
 int donneesControleur(controleurT * controleur)
@@ -50,11 +50,11 @@ int donneesControleur(controleurT * controleur)
 	(*controleur).modeClavier = 1;	//	1 : commande de la chaîne, 2 : Graphisme, 3 : Sauvegarde
 
 		fprintf(stderr, " Initialisation du système\n");
-	donneesSysteme(&(*controleur).systeme, &(*controleur).options);
+	donneesSysteme(&(*controleur).systemePendules, &(*controleur).options);
 
 		fprintf(stderr, " Création du système\n");
-	systemeCreation(&(*controleur).systeme);
-	changeFormeDissipation(&(*controleur).systeme, 1);
+	systemePendulesCreation(&(*controleur).systemePendules);
+	changeFormeDissipation(&(*controleur).systemePendules, 1);
 		fprintf(stderr, " Initialisation du graphe\n");
 	donneesGraphe(&(*controleur).graphe, &(*controleur).options);
 
@@ -66,17 +66,17 @@ int donneesControleur(controleurT * controleur)
 		//fprintf(stderr, "projectionInitialiseCouleurs\n");
 	projectionInitialiseCouleurs(&(*controleur).projection, 222, 111, 222, 255);// r, v, b, fond
 		//fprintf(stderr, "projectionInitialiseLongueurs\n");
-	projectionInitialiseLongueurs(&(*controleur).projection, HAUTEUR/3, LARGEUR*0.7, 0.61);// hauteur, largeur, ratio de distance
+	projectionInitialiseLongueurs(&(*controleur).projection, FENETRE_Y/3, FENETRE_X*0.7, 0.61);// hauteur, largeur, ratio de distance
 		//fprintf(stderr, "projectionInitialisePointDeVue\n");
 	projectionInitialisePointDeVue(&(*controleur).projection, PI/2 - 0.27, PI/2 + 0.21);//r=facteur de distance, psi, phi
-	//projectionInitialisePointDeVue(&(*controleur).projection, 3*LARGEUR, 0.0, 0.0);//r, psi, phi
+	//projectionInitialisePointDeVue(&(*controleur).projection, 3*FENETRE_X, 0.0, 0.0);//r, psi, phi
 
 		fprintf(stderr, " Initialisation SDL\n");
 	interfaceInitialisationSDL();
 		//fprintf(stderr, " Création de l'interface SDL\n");
 	interfaceInitialisation(&(*controleur).interface);
 		//fprintf(stderr, " Création du rendu\n");
-	graphiqueInitialisation(&(*controleur).graphique, &(*controleur).interface, TAILLE, (*controleur).options.fond);
+	graphiqueInitialisation(&(*controleur).graphique, &(*controleur).interface, TAILLE_MASSE, (*controleur).options.fond);
 
 	int largeur;
 	int hauteur;
@@ -122,46 +122,46 @@ int donneesOptions(optionsT * options)
 	return 0;
 	}
 
-int donneesSysteme(systemeT * systeme, optionsT * options)
+int donneesSysteme(systemePendulesT * systemePendules, optionsT * options)
 	{
 
 		// Initialisation du moteurs
 
-	(*systeme).moteurs.dt = (*options).dt;	// discrétisation du temps
+	(*systemePendules).moteurs.dt = (*options).dt;	// discrétisation du temps
 
-	(*systeme).moteurs.chrono = 0.0;
+	(*systemePendules).moteurs.chrono = 0.0;
 
-	(*systeme).moteurs.courant=15.0;		// Mémoire courant Josephson si = 0
-	(*systeme).moteurs.josephson=-3*(*options).dt*(*options).dt;
+	(*systemePendules).moteurs.courant=15.0;		// Mémoire courant Josephson si = 0
+	(*systemePendules).moteurs.josephson=-3*(*options).dt*(*options).dt;
 
-	(*systeme).moteurs.generateur = 0;	// éteint, sinus, carre, impulsion
-	(*systeme).moteurs.amplitude=0.3;		// Amplitude du générateur de signaux
-	(*systeme).moteurs.frequence=5.0;	// Fréquence du générateur de signaux
-	(*systeme).moteurs.phi=0;
+	(*systemePendules).moteurs.generateur = 0;	// éteint, sinus, carre, impulsion
+	(*systemePendules).moteurs.amplitude=0.3;		// Amplitude du générateur de signaux
+	(*systemePendules).moteurs.frequence=5.0;	// Fréquence du générateur de signaux
+	(*systemePendules).moteurs.phi=0;
 
 		// Caractéristique de la chaîne
 
-	(*systeme).libreFixe = 0;	// 0 periodique, 1 libre, 2 fixe
-	(*systeme).nombre = (*options).nombre;		// nombre de pendule
-	(*systeme).equation = (*options).equation;	// 1 : pendule pesant, 2 : linéarisation
+	(*systemePendules).libreFixe = 0;	// 0 periodique, 1 libre, 2 fixe
+	(*systemePendules).nombre = (*options).nombre;		// nombre de pendule
+	(*systemePendules).equation = (*options).equation;	// 1 : pendule pesant, 2 : linéarisation
 												// 3 : corde, 4 : dioptre
 
 		// Paramètres physiques
 
-	(*systeme).gravitation = 9.81;
-	(*systeme).masse = 1.0;
-	(*systeme).longueur = 9.81/4/PI/PI; // = 25 cm => période = 1 s
-	(*systeme).dissipation = 0.17;
-	(*systeme).couplage = 11.1 * (*systeme).nombre;
-	(*systeme).dephasage = (*options).soliton * 2 * PI;
+	(*systemePendules).gravitation = 9.81;
+	(*systemePendules).masse = 1.0;
+	(*systemePendules).longueur = 9.81/4/PI/PI; // = 25 cm => période = 1 s
+	(*systemePendules).dissipation = 0.17;
+	(*systemePendules).couplage = 11.1 * (*systemePendules).nombre;
+	(*systemePendules).dephasage = (*options).soliton * 2 * PI;
 
 /*
-	if((*systeme).equation == 3 || (*systeme).equation == 4)
+	if((*systemePendules).equation == 3 || (*systemePendules).equation == 4)
 		{		 // donneeCorde;
-		(*systeme).couplage = (*systeme).couplage * 10.0;
-		(*systeme).gravitation = 0.0;
-		(*systeme).libreFixe = 2;
-		(*systeme).moteurs.josephson=0.0;
+		(*systemePendules).couplage = (*systemePendules).couplage * 10.0;
+		(*systemePendules).gravitation = 0.0;
+		(*systemePendules).libreFixe = 2;
+		(*systemePendules).moteurs.josephson=0.0;
 		}
 */
 	return 0;

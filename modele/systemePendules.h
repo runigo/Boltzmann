@@ -29,21 +29,21 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _SYSTEME_
-#define _SYSTEME_
+#ifndef _SYSTEMEPENDULES_
+#define _SYSTEMEPENDULES_
 
 #include "chaine.h"
 #include "moteurs.h"
 
-typedef struct SystemeT systemeT;
-	struct SystemeT
+typedef struct SystemePendulesT systemePendulesT;
+	struct SystemePendulesT
 		{
 		chaineT * premier;	//	Premier pendule couplé
 
 		moteursT moteurs;		//	Josephson, horloge
-							//	Générateur de signal
+						//	Générateur de signal
 
-		int nombre;			//	Nombre de pendule
+		int nombre;		//	Nombre de pendule
 		int equation;		//	Pendule=1, Harmonique=2, Corde=3, Dioptre=4
 
 		float dephasage;	//	déphasage entre les limites
@@ -61,16 +61,16 @@ typedef struct SystemeT systemeT;
 		};
 
 // Création de la chaîne de pendule
-int systemeCreation(systemeT * systeme);
+int systemePendulesCreation(systemePendulesT * systeme);
 
 // Suppression de la chaîne de pendule
-void systemeSuppression(systemeT * systeme);
+void systemePendulesSuppression(systemePendulesT * systeme);
 
-// Évolution temporelle du systemeT, "duree" cycle d'évolution
-void systemeEvolution(systemeT * systeme, int duree);
+// Évolution temporelle du système, "duree" cycle d'évolution
+void systemePendulesEvolution(systemePendulesT * systeme, int duree);
 
 // Réinitialisation des positions
-void systemeInitialisePosition(systemeT * systeme);
+void systemePendulesInitialisePosition(systemePendulesT * systeme);
 #endif
 
 ////////////////////////////////////////////////////////////

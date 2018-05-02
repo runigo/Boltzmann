@@ -32,40 +32,48 @@ termes.
 #include "projection.h"
 
 int projectionPerspectiveChaine(projectionT * projection, grapheT * graphe);
-int projectionSystemeChaine3D(systemeT * systeme, projectionT * projection, grapheT * graphe);
+int projectionSystemeChaine3D(systemePendulesT * systemePendules, projectionT * projection, grapheT * graphe);
 
 int projectionInitialiseSupport(projectionT * projection, int nombre);
 int projectionPerspectiveSupport(projectionT * projection, grapheT * graphe);
 
-int projectionSystemeCommandes(systemeT * systeme, projectionT * projection, commandesT * commandes)
+int projectionSystemeCommandes(systemePendulesT * systemePendules, projectionT * projection, commandesT * commandes)
 	{		// Projette le système sur les commandes
 	(void)projection;
-/*
-	(*commandes).PositionX[0]=(int)(0.1324278438*hauteur); // 78  / 589	Couplage
-		float couplage;		//	Mémoire pour conditions limites
+	float theta;
+	float ratioRotatif = 0.9;
 
-	(*commandes).PositionX[1]=(int)(0.344651952462*hauteur); // 203	Dissipation Positon Y des boutons rotatifs
-		float dissipation;	//	Mémoire si alpha = 0.0
+				//	Projection sur les boutons rotatifs
+	theta = DEUXPI * (*systemePendules).couplage/(COUPLAGE_MAX * (*systemePendules).nombre);
+	(*commandes).rotatifPositionX[0]=(int)(ratioRotatif*(*commandes).rotatifX*sin(theta)); //	Couplage
+	(*commandes).rotatifPositionY[0]=(int)(ratioRotatif*(*commandes).rotatifY*cos(theta)); //	Couplage
 
-	(*commandes).PositionX[2]=(int)(0.555178268251*hauteur); // 327	Josephson
-		float courant;		//	Mémorise quand josephson = 0
+	theta = DEUXPI * (*systemePendules).dissipation/DISSIPATION_MAX;
+	(*commandes).rotatifPositionX[1]=(int)(ratioRotatif*(*commandes).rotatifX*sin(theta));
+	(*commandes).rotatifPositionY[1]=(int)(ratioRotatif*(*commandes).rotatifY*cos(theta));
 
-	(*commandes).PositionX[3]=(int)(0.765704584041*hauteur); // 451	Amplitude
-		float amplitude;	//	Amplitude du moteurs
+	theta = DEUXPI * (*systemePendules).moteurs.courant/JOSEPHSON_MAX;	//	josephson
+	(*commandes).rotatifPositionX[2]=(int)(ratioRotatif*(*commandes).rotatifX*sin(theta));
+	(*commandes).rotatifPositionY[2]=(int)(ratioRotatif*(*commandes).rotatifY*cos(theta));
 
-	(*commandes).PositionX[4]=(int)(0.920203735144*hauteur); // 542	Fréquence
-		float frequence;	//	Fréquence du moteurs
+	theta = DEUXPI * (*systemePendules).moteurs.amplitude/AMPLITUDE_MAX;	//	Amplitude du moteurs
+	(*commandes).rotatifPositionX[3]=(int)(ratioRotatif*(*commandes).rotatifX*sin(theta));
+	(*commandes).rotatifPositionY[3]=(int)(ratioRotatif*(*commandes).rotatifY*cos(theta));
 
-		int rotatifPositionX[ROTATIF_COMMANDES]; // Position du bouton rotatif
-		int rotatifPositionY[ROTATIF_COMMANDES];
-*/
+	theta = DEUXPI * (*systemePendules).moteurs.frequence/FREQUENCE_MAX;	//	Fréquence du moteurs
+	(*commandes).rotatifPositionX[4]=(int)(ratioRotatif*(*commandes).rotatifX*sin(theta));
+	(*commandes).rotatifPositionY[4]=(int)(ratioRotatif*(*commandes).rotatifY*cos(theta));
+
+		//int rotatifPositionX[ROTATIF_COMMANDES]; // Position du bouton rotatif
+		//int rotatifPositionY[ROTATIF_COMMANDES];
+
 
 	int i;
 	for(i=0;i<BOUTON_COMMANDES;i++) (*commandes).boutonEtat[i]=0;
 
 		//int libreFixe;		//	0 : périodiques 1 : libres, 2 : fixes, 
 							//		3 libre-fixe, 4 fixe-libre
-	switch((*systeme).libreFixe)	//	
+	switch((*systemePendules).libreFixe)	//	
 		{
 		case 0:
 			(*commandes).boutonEtat[0]=1;break; // 32	Périodique
@@ -85,14 +93,14 @@ int projectionSystemeCommandes(systemeT * systeme, projectionT * projection, com
 	(*commandes).boutonEtat[5]=1; // 198	Nulle
 	(*commandes).boutonEtat[6]=1; // 230	Extrémité
 */
-	if((*systeme).moteurs.josephson > 0.0)
+	if((*systemePendules).moteurs.josephson > 0.0)
 		{
 		(*commandes).boutonEtat[7]=1; // 284	Marche
 		(*commandes).boutonEtat[9]=1; // 339	Droite
 		}
 	else
 		{
-		if((*systeme).moteurs.josephson < 0.0)
+		if((*systemePendules).moteurs.josephson < 0.0)
 			{
 			(*commandes).boutonEtat[7]=1; // 284	Marche
 			(*commandes).boutonEtat[10]=1; // 367	Gauche
@@ -103,7 +111,7 @@ int projectionSystemeCommandes(systemeT * systeme, projectionT * projection, com
 			}
 		}
 
-	switch((*systeme).moteurs.generateur)	//	0:eteint, 1:sinus, 2:carre, 3:impulsion
+	switch((*systemePendules).moteurs.generateur)	//	0:eteint, 1:sinus, 2:carre, 3:impulsion
 		{
 		case 0:
 			(*commandes).boutonEtat[11]=1;break; // 421	Arrêt
@@ -117,8 +125,8 @@ int projectionSystemeCommandes(systemeT * systeme, projectionT * projection, com
 			;
 		}
 
-	/*	float (*systeme).moteurs.phi;			//	Phase
-		float (*systeme).dephasage;	//	déphasage entre les limites
+	/*	float (*systemePendules).moteurs.phi;			//	Phase
+		float (*systemePendules).dephasage;	//	déphasage entre les limites
 	(*commandes).boutonEtat[15]=1; // 536	Fluxon
 	(*commandes).boutonEtat[16]=1; // 563	Anti F.
 	*/
@@ -217,13 +225,13 @@ int projectionAffichePointDeVue(projectionT * projection)
 		Projection du système sur le rendu en perspective
 
 */
-int projectionSystemeChaineDePendule(systemeT * systeme, projectionT * projection, grapheT * graphe)
+int projectionSystemeChaineDePendule(systemePendulesT * systemePendules, projectionT * projection, grapheT * graphe)
 	{
 		// Projection du système sur la chaîne de pendule 3D
-	projectionSystemeChaine3D(systeme, projection, graphe);
+	projectionSystemeChaine3D(systemePendules, projection, graphe);
 
 		// Initialisation des points du support
-	projectionInitialiseSupport(projection, (*systeme).nombre);
+	projectionInitialiseSupport(projection, (*systemePendules).nombre);
 
 		// Projection en 2D de la représentation 3D
 	projectionPerspectiveChaine(projection, graphe);
@@ -391,18 +399,18 @@ int projectionPerspectiveChaine(projectionT * projection, grapheT * graphe)
 	return 0;
 	}
 
-int projectionSystemeChaine3D(systemeT * systeme, projectionT * projection, grapheT * graphe)
+int projectionSystemeChaine3D(systemePendulesT * systemePendules, projectionT * projection, grapheT * graphe)
 	{	//	Projette le système sur une chaîne de pendule en 3 D
 	//float x=0;
-	float i = -(*systeme).nombre/2;
+	float i = -(*systemePendules).nombre/2;
 
-	chaineT *iterSystem=(*systeme).premier;
+	chaineT *iterSystem=(*systemePendules).premier;
 	pointsT *iterGraph=(*graphe).premier;
 
 	do
 		{
 			// Axe fixe
-		iterGraph->axe.x = (*projection).largeur*(i/(*systeme).nombre);
+		iterGraph->axe.x = (*projection).largeur*(i/(*systemePendules).nombre);
 		iterGraph->axe.y = 0;
 		iterGraph->axe.z = 0;
 

@@ -1,9 +1,11 @@
+
 /*
 Copyright septembre 2017, Stephan Runigo
 runigo@free.fr
-SiCP 1.3  simulateur de chaîne de pendules
-Ce logiciel est un programme informatique servant à simuler l'équation
-d'une chaîne de pendules et à en donner une représentation graphique.
+SiGP 1.3.3  simulateur de gaz parfait
+Ce logiciel est un programme informatique servant à simuler un gaz parfait
+et à en donner une représentation graphique. Il permet d'observer une détente
+de Joule ainsi que des transferts thermiques avec des thermostats.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -29,20 +31,21 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _CHANGE_
-#define _CHANGE_
+#ifndef _ALEATOIRE_
+#define _ALEATOIRE_
 
-#include "systemePendules.h"
+#include "../donnees/constantes.h"
 
-// Variation des parametres
-void changeCouplage(systemePendulesT * systemePendules, float facteur);
-void changeGravitation(systemePendulesT * systemePendules, float facteur);
-void changeMasse(systemePendulesT * systemePendules, float facteur);
-void changeDissipation(systemePendulesT * systemePendules, float facteur);
-void changeFormeDissipation(systemePendulesT * systemePendules, int forme);
-	// 0 : supprime, 1 : uniforme, 2 : ajoute extrémite absorbante
+/*	Le tableau aléatoire est défini de manière statique lors du premier appel.
 
-void changeConditionsLimites(systemePendulesT * systemePendules, int libreFixe);
-void changeDephasage(systemePendulesT * systemePendules, float dephasage);
+typedef struct AleatoireT aleatoireT;
+	struct AleatoireT
+		{
+		int tableauAleatoire[ALEATOIRE];// Tableau d'entier aléatoire
+		};
+*/
+
+int aleatoireRandMax(void);
+double aleatoireRadian(void);
 
 #endif

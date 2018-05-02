@@ -1,9 +1,11 @@
+
 /*
 Copyright septembre 2017, Stephan Runigo
 runigo@free.fr
-SiCP 1.3  simulateur de chaîne de pendules
-Ce logiciel est un programme informatique servant à simuler l'équation
-d'une chaîne de pendules et à en donner une représentation graphique.
+SiGP 1.3.3  simulateur de gaz parfait
+Ce logiciel est un programme informatique servant à simuler un gaz parfait
+et à en donner une représentation graphique. Il permet d'observer une détente
+de Joule ainsi que des transferts thermiques avec des thermostats.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -29,20 +31,28 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _CHANGE_
-#define _CHANGE_
+#ifndef _VECTEUR2D_
+#define _VECTEUR2D_
 
-#include "systemePendules.h"
+#include "aleatoire.h"
 
-// Variation des parametres
-void changeCouplage(systemePendulesT * systemePendules, float facteur);
-void changeGravitation(systemePendulesT * systemePendules, float facteur);
-void changeMasse(systemePendulesT * systemePendules, float facteur);
-void changeDissipation(systemePendulesT * systemePendules, float facteur);
-void changeFormeDissipation(systemePendulesT * systemePendules, int forme);
-	// 0 : supprime, 1 : uniforme, 2 : ajoute extrémite absorbante
+typedef struct Vecteur2DT vecteur2DT;
+	struct Vecteur2DT
+		{
+		double x;
+		double y;
+		};
 
-void changeConditionsLimites(systemePendulesT * systemePendules, int libreFixe);
-void changeDephasage(systemePendulesT * systemePendules, float dephasage);
+void vecteur2DDifference(vecteur2DT * v1, vecteur2DT * v2, vecteur2DT * v); // v = v1 - v2
+void vecteur2DSomme(vecteur2DT * v1, vecteur2DT * v2, vecteur2DT * v); // v = v1 + v2
+void vecteur2DMultiplie(vecteur2DT * v, float lambda); // v = lambda * v
+
+double vecteur2DScalaire(vecteur2DT * v1, vecteur2DT * v2);
+
+double vecteur2DVectoriel(vecteur2DT * v1, vecteur2DT * v2);
+
+void vecteur2DRotation(vecteur2DT * initial, vecteur2DT * tourner, double angle);
+void vecteur2DRotationAleatoire(vecteur2DT * initial, vecteur2DT * tourner);
+void vecteur2DUnitaireAleatoire(vecteur2DT * vect);
 
 #endif

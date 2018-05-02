@@ -45,7 +45,7 @@ typedef struct ControleurT controleurT;
 
 		optionsT options;	//	Options de la ligne de commande
 
-		systemeT systeme;	//	Modélisation physique de la chaîne
+		systemePendulesT systemePendules;	//	Modélisation physique de la chaîne
 
 		projectionT projection;	//	Paramètre de la projection
 

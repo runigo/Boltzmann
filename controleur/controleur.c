@@ -62,7 +62,7 @@ int controleurDestruction(controleurT * control)
 
 
 	fprintf(stderr, "Suppression du système\n");
-	systemeSuppression(&(*control).systeme);
+	systemePendulesSuppression(&(*control).systemePendules);
 
 	fprintf(stderr, "Suppression du graphe\n");
 	grapheSuppression(&(*control).graphe);
@@ -109,7 +109,7 @@ int controleurEvolution(controleurT * controleur)
 		//fprintf(stderr, "    Durée entre affichage = %d\n",horlogeChronoDuree(&(*controleur).horloge));
 	//horlogeChronoDepart(&(*controleur).horloge);
 
-		//fprintf(stderr, "Projection du systeme sur la représentation graphique\n");
+		//fprintf(stderr, "Projection du système sur la représentation graphique\n");
 	controleurProjection(controleur);
 		//fprintf(stderr, "    Durée = %d\n",horlogeChronoDuree(&(*controleur).horloge));
 
@@ -118,7 +118,7 @@ int controleurEvolution(controleurT * controleur)
 	if((*controleur).options.modePause > 0)
 		{
 		//horlogeChronoDepart(&(*controleur).horloge);
-		//fprintf(stderr, "Evolution temporelle du systeme\n");
+		//fprintf(stderr, "Evolution temporelle du système\n");
 		controleurEvolutionSysteme(controleur);
 		//fprintf(stderr, "    Durée = %d\n",horlogeChronoDuree(&(*controleur).horloge));
 		}
@@ -164,16 +164,16 @@ int controleurProjection(controleurT * controleur)
 		//fprintf(stderr, "projectionInitialiseLongueurs\n");
 	projectionInitialiseLongueurs(&(*controleur).projection, hauteur*RATIO_H_L, largeur, (*controleur).projection.pointDeVue.r);
 
-	projectionSystemeChaineDePendule(&(*controleur).systeme, &(*controleur).projection, &(*controleur).graphe);
-	projectionSystemeCommandes(&(*controleur).systeme, &(*controleur).projection, &(*controleur).commandes);
+	projectionSystemeChaineDePendule(&(*controleur).systemePendules, &(*controleur).projection, &(*controleur).graphe);
+	projectionSystemeCommandes(&(*controleur).systemePendules, &(*controleur).projection, &(*controleur).commandes);
 
 	return (*controleur).sortie;
 	}
 
 int controleurEvolutionSysteme(controleurT * controleur)
 	{
-		//fprintf(stderr, "Evolution temporelle du systeme\n");
-	systemeEvolution(&(*controleur).systeme, (*controleur).options.duree);
+		//fprintf(stderr, "Evolution temporelle du système\n");
+	systemePendulesEvolution(&(*controleur).systemePendules, (*controleur).options.duree);
 
 	return 0;
 	}
@@ -325,92 +325,92 @@ int controleurClavier(controleurT * controleur)
 
 	// Conditions aux limites
 		case SDLK_y:
-			changeDephasage(&(*controleur).systeme, 2*PI);break;
+			changeDephasage(&(*controleur).systemePendules, 2*PI);break;
 		case SDLK_h:
-			changeDephasage(&(*controleur).systeme, -2*PI);break;
+			changeDephasage(&(*controleur).systemePendules, -2*PI);break;
 		case SDLK_w:
-			changeConditionsLimites(&(*controleur).systeme, 0); // periodiques
+			changeConditionsLimites(&(*controleur).systemePendules, 0); // periodiques
 			break;
 		case SDLK_x:
-			changeConditionsLimites(&(*controleur).systeme, 1); // libres
+			changeConditionsLimites(&(*controleur).systemePendules, 1); // libres
 			break;
 		case SDLK_c:
-			changeConditionsLimites(&(*controleur).systeme, 2); // fixes
+			changeConditionsLimites(&(*controleur).systemePendules, 2); // fixes
 			break;
 		case SDLK_b:
 			fprintf(stderr, "Commande désactivée depuis SiCP 1.4.1");
-			//changeConditionsLimites(&(*controleur).systeme, 3); // libre fixe
+			//changeConditionsLimites(&(*controleur).systemePendules, 3); // libre fixe
 			break;
 		case SDLK_n:
-			changeConditionsLimites(&(*controleur).systeme, 4); // fixe libre
+			changeConditionsLimites(&(*controleur).systemePendules, 4); // fixe libre
 			break;
 
 
 	// Dissipation
 		case SDLK_e:
-			changeDissipation(&(*controleur).systeme, 0.77);break;
+			changeDissipation(&(*controleur).systemePendules, 0.77);break;
 		case SDLK_d:
-			changeDissipation(&(*controleur).systeme, 1.3);break;
+			changeDissipation(&(*controleur).systemePendules, 1.3);break;
 		case SDLK_r:
-			changeFormeDissipation(&(*controleur).systeme, 0);break;
+			changeFormeDissipation(&(*controleur).systemePendules, 0);break;
 		case SDLK_f:
-			changeFormeDissipation(&(*controleur).systeme, 1);break;
+			changeFormeDissipation(&(*controleur).systemePendules, 1);break;
 		case SDLK_v:
-			changeFormeDissipation(&(*controleur).systeme, 2);break;
+			changeFormeDissipation(&(*controleur).systemePendules, 2);break;
 
 	// Couplage
 		case SDLK_a:
-			changeCouplage(&(*controleur).systeme, 1.1);break;
+			changeCouplage(&(*controleur).systemePendules, 1.1);break;
 		case SDLK_q:
-			changeCouplage(&(*controleur).systeme, 0.91);break;
+			changeCouplage(&(*controleur).systemePendules, 0.91);break;
 
 	// Masse
 		case SDLK_z:
-			changeMasse(&(*controleur).systeme, 1.7);break;
+			changeMasse(&(*controleur).systemePendules, 1.7);break;
 		case SDLK_s:
-			changeMasse(&(*controleur).systeme, 0.6);break;
+			changeMasse(&(*controleur).systemePendules, 0.6);break;
 
 	// Gravitation
 		case SDLK_t:
-			changeGravitation(&(*controleur).systeme, 1.3);break;
+			changeGravitation(&(*controleur).systemePendules, 1.3);break;
 		case SDLK_g:
-			changeGravitation(&(*controleur).systeme, 0.77);break;
+			changeGravitation(&(*controleur).systemePendules, 0.77);break;
 
 	// Moteur jonction Josephson
 		case SDLK_UP:
-			moteursChangeJosephson(&(*controleur).systeme.moteurs,1.1);break;
+			moteursChangeJosephson(&(*controleur).systemePendules.moteurs,1.1);break;
 		case SDLK_DOWN:
-			moteursChangeJosephson(&(*controleur).systeme.moteurs,0.91);break;
+			moteursChangeJosephson(&(*controleur).systemePendules.moteurs,0.91);break;
 		case SDLK_LEFT:
-			moteursChangeJosephson(&(*controleur).systeme.moteurs,-1.0);break;
+			moteursChangeJosephson(&(*controleur).systemePendules.moteurs,-1.0);break;
 		case SDLK_RIGHT:
-			moteursChangeJosephson(&(*controleur).systeme.moteurs,0.0);break;
+			moteursChangeJosephson(&(*controleur).systemePendules.moteurs,0.0);break;
 
 	// Moteur générateur de signaux
 		case SDLK_p:
-			moteursChangeFrequence(&(*controleur).systeme.moteurs,1.1);break;
+			moteursChangeFrequence(&(*controleur).systemePendules.moteurs,1.1);break;
 		case SDLK_m:
-			moteursChangeFrequence(&(*controleur).systeme.moteurs,0.91);break;
+			moteursChangeFrequence(&(*controleur).systemePendules.moteurs,0.91);break;
 		case SDLK_u:
-			moteursChangeAmplitude(&(*controleur).systeme.moteurs,1.1);break;
+			moteursChangeAmplitude(&(*controleur).systemePendules.moteurs,1.1);break;
 		case SDLK_j:
-			moteursChangeAmplitude(&(*controleur).systeme.moteurs,0.91);break;
+			moteursChangeAmplitude(&(*controleur).systemePendules.moteurs,0.91);break;
 		case SDLK_o:
-			moteursChangeGenerateur(&(*controleur).systeme.moteurs, -1);break;
+			moteursChangeGenerateur(&(*controleur).systemePendules.moteurs, -1);break;
 		case SDLK_i:
-			moteursChangeGenerateur(&(*controleur).systeme.moteurs, 3);break;
+			moteursChangeGenerateur(&(*controleur).systemePendules.moteurs, 3);break;
 		case SDLK_l:
-			moteursChangeGenerateur(&(*controleur).systeme.moteurs, 2);break;
+			moteursChangeGenerateur(&(*controleur).systemePendules.moteurs, 2);break;
 
 
 	// Choix de la simulation
 /*
 		case SDLK_F1: // Pendules
-			(*controleur).systeme.equation = 1;break;
+			(*controleur).systemePendules.equation = 1;break;
 		case SDLK_F2: // Harmoniques
-			(*controleur).systeme.equation = 2;break;
+			(*controleur).systemePendules.equation = 2;break;
 		case SDLK_F3: // Corde
-			(*controleur).systeme.equation = 3;break;
+			(*controleur).systemePendules.equation = 3;break;
 */
   // Afficher les observables
 
@@ -418,10 +418,10 @@ int controleurClavier(controleurT * controleur)
 			controleurAfficheSouris(controleur);
 			break;
 		case SDLK_F5:
-			observablesAfficheEnergie(&(*controleur).systeme);
+			observablesAfficheEnergie(&(*controleur).systemePendules);
 			break;
 		case SDLK_F6:
-			moteursAfficheHorloge(&(*controleur).systeme.moteurs);
+			moteursAfficheHorloge(&(*controleur).systemePendules.moteurs);
 			break;
 		case SDLK_F7:
 			projectionAffichePointDeVue(&(*controleur).projection);
@@ -496,7 +496,7 @@ int controleurClavier3(controleurT * controleur)
 			// Réinitialisation du système
 		case SDLK_a:
 			fprintf(stderr, "Réinitialisation du système\n");
-			systemeInitialisePosition(&(*controleur).systeme);break;
+			systemePendulesInitialisePosition(&(*controleur).systemePendules);break;
 
 		default:
 			;
@@ -526,7 +526,7 @@ int controleurClavierMaj(controleurT * controleur)
 		// Lecture des fichier
 		case SDLK_a:
 			fprintf(stderr, "Réinitialisation du système\n");
-			systemeInitialisePosition(&(*controleur).systeme);break;
+			systemePendulesInitialisePosition(&(*controleur).systemePendules);break;
 
 		default:
 			;
@@ -572,39 +572,39 @@ int controleurCommandes(controleurT * controleur, int zone)
 		switch(commande)	//	
 			{
 			case 0:
-				changeConditionsLimites(&(*controleur).systeme, 0);break; // 32	Périodique
+				changeConditionsLimites(&(*controleur).systemePendules, 0);break; // 32	Périodique
 			case 1:
-				changeConditionsLimites(&(*controleur).systeme, 1);break; // 62	Libre
+				changeConditionsLimites(&(*controleur).systemePendules, 1);break; // 62	Libre
 			case 2:
-				changeConditionsLimites(&(*controleur).systeme, 2);break; // 88 	Fixe
+				changeConditionsLimites(&(*controleur).systemePendules, 2);break; // 88 	Fixe
 			case 3:
-				changeConditionsLimites(&(*controleur).systeme, 4);break; // 115	Mixte
+				changeConditionsLimites(&(*controleur).systemePendules, 4);break; // 115	Mixte
 			case 4:
-				changeFormeDissipation(&(*controleur).systeme, 1);break; // 167	Uniforme
+				changeFormeDissipation(&(*controleur).systemePendules, 1);break; // 167	Uniforme
 			case 5:
-				changeFormeDissipation(&(*controleur).systeme, 0);break; // 198	Nulle
+				changeFormeDissipation(&(*controleur).systemePendules, 0);break; // 198	Nulle
 			case 6:
-				changeFormeDissipation(&(*controleur).systeme, 2);break; // 230	Extrémité
+				changeFormeDissipation(&(*controleur).systemePendules, 2);break; // 230	Extrémité
 			case 7:
-				moteursChangeJosephson(&(*controleur).systeme.moteurs,0.0);break; // 284	Marche
+				moteursChangeJosephson(&(*controleur).systemePendules.moteurs,0.0);break; // 284	Marche
 			case 8:
-				moteursChangeJosephson(&(*controleur).systeme.moteurs,0.0);break; // 311	Arrêt
+				moteursChangeJosephson(&(*controleur).systemePendules.moteurs,0.0);break; // 311	Arrêt
 			case 9:
-				moteursChangeJosephson(&(*controleur).systeme.moteurs,-1.0);break; // 339	Droite
+				moteursChangeJosephson(&(*controleur).systemePendules.moteurs,-1.0);break; // 339	Droite
 			case 10:
-				moteursChangeJosephson(&(*controleur).systeme.moteurs,-1.0);break; // 367	Gauche
+				moteursChangeJosephson(&(*controleur).systemePendules.moteurs,-1.0);break; // 367	Gauche
 			case 11:
-				moteursChangeGenerateur(&(*controleur).systeme.moteurs, -1);break; // 421	Arrêt
+				moteursChangeGenerateur(&(*controleur).systemePendules.moteurs, -1);break; // 421	Arrêt
 			case 12:
-				moteursChangeGenerateur(&(*controleur).systeme.moteurs, -1);break; // 449	Sinus
+				moteursChangeGenerateur(&(*controleur).systemePendules.moteurs, -1);break; // 449	Sinus
 			case 13:
-				moteursChangeGenerateur(&(*controleur).systeme.moteurs, 2);break; // 481	Carré
+				moteursChangeGenerateur(&(*controleur).systemePendules.moteurs, 2);break; // 481	Carré
 			case 14:
-				moteursChangeGenerateur(&(*controleur).systeme.moteurs, 3);break; // 509	Impulsion
+				moteursChangeGenerateur(&(*controleur).systemePendules.moteurs, 3);break; // 509	Impulsion
 			case 15:
-				changeDephasage(&(*controleur).systeme, 2*PI);break; // 536	Fluxon
+				changeDephasage(&(*controleur).systemePendules, 2*PI);break; // 536	Fluxon
 			case 16:
-				changeDephasage(&(*controleur).systeme, -2*PI);break; // 563	Anti F.
+				changeDephasage(&(*controleur).systemePendules, -2*PI);break; // 563	Anti F.
 			default:
 				;
 			}

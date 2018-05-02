@@ -1,9 +1,11 @@
+
 /*
 Copyright septembre 2017, Stephan Runigo
 runigo@free.fr
-SiCP 1.3  simulateur de chaîne de pendules
-Ce logiciel est un programme informatique servant à simuler l'équation
-d'une chaîne de pendules et à en donner une représentation graphique.
+SiGP 1.3.3  simulateur de gaz parfait
+Ce logiciel est un programme informatique servant à simuler un gaz parfait
+et à en donner une représentation graphique. Il permet d'observer une détente
+de Joule ainsi que des transferts thermiques avec des thermostats.
 Ce logiciel est régi par la licence CeCILL soumise au droit français et
 respectant les principes de diffusion des logiciels libres. Vous pouvez
 utiliser, modifier et/ou redistribuer ce programme sous les conditions
@@ -29,20 +31,45 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#ifndef _CHANGE_
-#define _CHANGE_
+#include "aleatoire.h"
 
-#include "systemePendules.h"
+int aleatoireRandMax(void)
+	{
+	/*
+		Produit un entier aléatoire entre 0 et RAND_MAX
 
-// Variation des parametres
-void changeCouplage(systemePendulesT * systemePendules, float facteur);
-void changeGravitation(systemePendulesT * systemePendules, float facteur);
-void changeMasse(systemePendulesT * systemePendules, float facteur);
-void changeDissipation(systemePendulesT * systemePendules, float facteur);
-void changeFormeDissipation(systemePendulesT * systemePendules, int forme);
-	// 0 : supprime, 1 : uniforme, 2 : ajoute extrémite absorbante
+		Lors du premier appel, un tableau de nombre aléatoire est construit.
 
-void changeConditionsLimites(systemePendulesT * systemePendules, int libreFixe);
-void changeDephasage(systemePendulesT * systemePendules, float dephasage);
+		Lors d'un appel, une case du tableau est choisie aléatoirement,
+		son contenu est renvoyée par la fonction puis remplacé par un 
+		nouveau nombre aléatoire.
+	*/
 
-#endif
+	static int tableauAleatoire[ALEATOIRE];// Tableau d'entier aléatoire
+	static int first = 0;// Marque le premier appel
+	int index, entier;
+	if(first == 0)
+		{// Initialisation du tableau lors du premier appel
+		int i;
+		srand(time(NULL));// initialisation de la graine
+		for(i=0;i<ALEATOIRE;i++)
+			tableauAleatoire[i] = rand();
+		first = 1;
+		}
+	index=(int)((rand())*(1.0/RAND_MAX)*(ALEATOIRE-1));//  Choix aléatoire d'une case du tableau
+	entier=tableauAleatoire[index];// qui donne l'entier
+	tableauAleatoire[index] = rand();// Changement de la case utilisée.
+	return(entier);
+	}
+
+double aleatoireRadian(void)
+	{
+	/*
+		Produit un angle aléatoire entre 0 et 2 PI
+	*/
+
+	double angle;
+	angle=(PI*(aleatoireRandMax()))*(2.0/RAND_MAX);
+	return angle;
+	}
+

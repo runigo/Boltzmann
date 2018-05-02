@@ -38,8 +38,8 @@ OBJDIR = ./obj
 
 all : $(EXEC)
 
-$(EXEC) : $(OBJDIR)/principale.o $(OBJDIR)/options.o $(OBJDIR)/donnees.o $(OBJDIR)/controleur.o $(OBJDIR)/projection.o $(OBJDIR)/menu.o $(OBJDIR)/graphique.o $(OBJDIR)/observables.o $(OBJDIR)/graphe.o $(OBJDIR)/commandes.o $(OBJDIR)/horloge.o $(OBJDIR)/interface.o $(OBJDIR)/point.o $(OBJDIR)/vecteur.o $(OBJDIR)/change.o $(OBJDIR)/systeme.o $(OBJDIR)/moteurs.o $(OBJDIR)/chaine.o $(OBJDIR)/pendule.o
-	$(CC) -g $(OBJDIR)/principale.o $(OBJDIR)/options.o $(OBJDIR)/donnees.o $(OBJDIR)/controleur.o $(OBJDIR)/projection.o $(OBJDIR)/menu.o $(OBJDIR)/graphique.o $(OBJDIR)/observables.o $(OBJDIR)/graphe.o $(OBJDIR)/commandes.o $(OBJDIR)/horloge.o $(OBJDIR)/interface.o $(OBJDIR)/point.o $(OBJDIR)/vecteur.o $(OBJDIR)/change.o $(OBJDIR)/systeme.o $(OBJDIR)/moteurs.o $(OBJDIR)/chaine.o $(OBJDIR)/pendule.o `sdl2-config --libs` $(LDFLAGS) -o $(EXEC)
+$(EXEC) : $(OBJDIR)/principale.o $(OBJDIR)/options.o $(OBJDIR)/donnees.o $(OBJDIR)/controleur.o $(OBJDIR)/projection.o $(OBJDIR)/menu.o $(OBJDIR)/graphique.o $(OBJDIR)/observables.o $(OBJDIR)/graphe.o $(OBJDIR)/commandes.o $(OBJDIR)/horloge.o $(OBJDIR)/interface.o $(OBJDIR)/point.o $(OBJDIR)/vecteur.o $(OBJDIR)/change.o $(OBJDIR)/systemePendules.o $(OBJDIR)/moteurs.o $(OBJDIR)/chaine.o $(OBJDIR)/pendule.o $(OBJDIR)/systemeThermo.o $(OBJDIR)/thermostat.o $(OBJDIR)/mobile.o $(OBJDIR)/montage.o $(OBJDIR)/vecteur2D.o $(OBJDIR)/aleatoire.o
+	$(CC) -g $(OBJDIR)/principale.o $(OBJDIR)/options.o $(OBJDIR)/donnees.o $(OBJDIR)/controleur.o $(OBJDIR)/projection.o $(OBJDIR)/menu.o $(OBJDIR)/graphique.o $(OBJDIR)/observables.o $(OBJDIR)/graphe.o $(OBJDIR)/commandes.o $(OBJDIR)/horloge.o $(OBJDIR)/interface.o $(OBJDIR)/point.o $(OBJDIR)/vecteur.o $(OBJDIR)/change.o $(OBJDIR)/systemePendules.o $(OBJDIR)/moteurs.o $(OBJDIR)/chaine.o $(OBJDIR)/pendule.o $(OBJDIR)/systemeThermo.o $(OBJDIR)/thermostat.o $(OBJDIR)/mobile.o $(OBJDIR)/montage.o $(OBJDIR)/vecteur2D.o $(OBJDIR)/aleatoire.o `sdl2-config --libs` $(LDFLAGS) -o $(EXEC)
 
 $(OBJDIR)/principale.o : controleur/principale.c controleur/principale.h
 	$(CC) -c -g controleur/principale.c $(CFLAGS) -o $@
@@ -86,8 +86,8 @@ $(OBJDIR)/observables.o : modele/observables.c modele/observables.h
 $(OBJDIR)/change.o : modele/change.c modele/change.h
 	$(CC) -c -g modele/change.c $(CFLAGS) -o $@
 
-$(OBJDIR)/systeme.o : modele/systeme.c modele/systeme.h
-	$(CC) -c -g modele/systeme.c $(CFLAGS) -o $@
+$(OBJDIR)/systemePendules.o : modele/systemePendules.c modele/systemePendules.h
+	$(CC) -c -g modele/systemePendules.c $(CFLAGS) -o $@
 
 $(OBJDIR)/moteurs.o : modele/moteurs.c modele/moteurs.h
 	$(CC) -c -g modele/moteurs.c $(CFLAGS) -o $@
@@ -98,6 +98,23 @@ $(OBJDIR)/chaine.o : modele/chaine.c modele/chaine.h
 $(OBJDIR)/pendule.o : modele/pendule.c modele/pendule.h
 	$(CC) -c -g modele/pendule.c $(CFLAGS) -o $@
 
+$(OBJDIR)/systemeThermo.o : modele/systemeThermo.c modele/systemeThermo.h
+	$(CC) -c -g modele/systemeThermo.c $(CFLAGS) -o $@
+
+$(OBJDIR)/thermostat.o : modele/thermostat.c modele/thermostat.h
+	$(CC) -c -g modele/thermostat.c $(CFLAGS) -o $@
+
+$(OBJDIR)/mobile.o : modele/mobile.c modele/mobile.h
+	$(CC) -c -g modele/mobile.c $(CFLAGS) -o $@
+
+$(OBJDIR)/montage.o : modele/montage.c modele/montage.h
+	$(CC) -c -g modele/montage.c $(CFLAGS) -o $@
+
+$(OBJDIR)/vecteur2D.o : modele/vecteur2D.c modele/vecteur2D.h
+	$(CC) -c -g modele/vecteur2D.c $(CFLAGS) -o $@
+
+$(OBJDIR)/aleatoire.o : modele/aleatoire.c modele/aleatoire.h
+	$(CC) -c -g modele/aleatoire.c $(CFLAGS) -o $@
 clean :
 	rm $(OBJDIR)/*.o
 

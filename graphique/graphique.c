@@ -31,6 +31,7 @@ termes.
 
 #include "graphique.h"
 
+int graphiqueChangeCouleur(graphiqueT * graphique, SDL_Color couleur);
 void graphiqueLigne(graphiqueT * graphique, int X, int Y, int x, int y);
 void graphiqueTige(graphiqueT * graphique, int X, int Y, int x, int y);
 //void graphiqueMasse(graphiqueT * graphique, int abs, int ord);
@@ -155,15 +156,29 @@ int graphiqueCommandes(graphiqueT * graphique, commandesT * commandes)
 	coordonnee.h=10;
 	coordonnee.x = (*commandes).boutonsCentre - centrage;	// Positon X de la zone des petits boutons
 	int i;
+	int X, Y, x, y;
 			
 	for(i=0;i<BOUTON_COMMANDES;i++)
 		{
 		if((*commandes).boutonEtat[i]==1)
 			{
-			coordonnee.y = (*commandes).boutonCentre[i]; // Positon Y des petits boutons
+			coordonnee.y = (*commandes).boutonCentre[i] - centrage; // Positon Y des petits boutons
 			//	Dessin des petits boutons
 			SDL_RenderCopy((*graphique).rendu, (*graphique).masse, NULL, &coordonnee);
 			}
+		}
+
+	graphiqueChangeCouleur(graphique, (*graphique).orange);
+	X=(*commandes).rotatifsCentre;
+	for(i=0;i<ROTATIF_COMMANDES;i++)
+		{
+		Y=(*commandes).rotatifCentre[i];
+		x=X+(*commandes).rotatifPositionX[i];
+		y=Y+(*commandes).rotatifPositionY[i];
+		SDL_RenderDrawLine((*graphique).rendu, X-1, Y, x-1, y);
+		SDL_RenderDrawLine((*graphique).rendu, X, Y-1, x, y-1);
+		SDL_RenderDrawLine((*graphique).rendu, X+1, Y, x+1, y);
+		SDL_RenderDrawLine((*graphique).rendu, X, Y+1, x, y+1);
 		}
 
 	return 0;

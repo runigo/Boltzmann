@@ -29,106 +29,106 @@ pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
 */
 
-#include "systeme.h"
+#include "change.h"
 
-void changeLimite(systemeT * systeme);
+void changeLimite(systemePendulesT * systemePendules);
 
 /*--------------------------------------------------------------*/
 
-void changeCouplage(systemeT * systeme, float facteur)
+void changeCouplage(systemePendulesT * systemePendules, float facteur)
 	{// Multiplie le couplage par facteur
 	float maximum;
-	chaineT *iter=(*systeme).premier;
+	chaineT *iter=(*systemePendules).premier;
 
-	maximum = (*systeme).couplage * facteur / (*systeme).nombre;
+	maximum = (*systemePendules).couplage * facteur / (*systemePendules).nombre;
 
 	if(maximum < COUPLAGE_MAX)
 		{
-		(*systeme).couplage=(*systeme).couplage*facteur;
+		(*systemePendules).couplage=(*systemePendules).couplage*facteur;
 		do
 			{
 			penduleChangeCouplage(&(iter->pendule), facteur);
 			iter=iter->suivant;
 			}
-		while(iter!=(*systeme).premier);
+		while(iter!=(*systemePendules).premier);
 		}
 	else
 		{
-		printf("Maximum du couplage = %6.3f\n", (*systeme).couplage);
+		printf("Maximum du couplage = %6.3f\n", (*systemePendules).couplage);
 		}
 
-	printf("Couplage = %6.3f\n", (*systeme).couplage);
+	printf("Couplage = %6.3f\n", (*systemePendules).couplage);
 
 	return;
 	}
 
-void changeGravitation(systemeT * systeme, float facteur)
+void changeGravitation(systemePendulesT * systemePendules, float facteur)
 	{// Multiplie la gravitation par facteur
-	chaineT *iter=(*systeme).premier;
+	chaineT *iter=(*systemePendules).premier;
 	float gravitation;
 
-	gravitation = (*systeme).gravitation * facteur;
+	gravitation = (*systemePendules).gravitation * facteur;
 
 	if(gravitation < GRAVITATION_MAX && gravitation > GRAVITATION_MIN)
 		{
-		(*systeme).gravitation = gravitation;
+		(*systemePendules).gravitation = gravitation;
 		do
 			{
 			penduleChangeGravitation(&(iter->pendule), facteur);
 			iter=iter->suivant;
 			}
-		while(iter!=(*systeme).premier);
+		while(iter!=(*systemePendules).premier);
 		}
 	else
 		{
-		printf("Maximum de la gravité = %6.3f\n", (*systeme).gravitation);
+		printf("Maximum de la gravité = %6.3f\n", (*systemePendules).gravitation);
 		}
 
-	printf("Gravitation = %6.3f\n", (*systeme).gravitation);
+	printf("Gravitation = %6.3f\n", (*systemePendules).gravitation);
 
 	return;
 	}
 
-void changeMasse(systemeT * systeme, float facteur)
+void changeMasse(systemePendulesT * systemePendules, float facteur)
 	{// Multiplie la masse par facteur
-	chaineT *iter=(*systeme).premier;
+	chaineT *iter=(*systemePendules).premier;
 	float masse;
 
-	masse = (*systeme).masse * facteur;
+	masse = (*systemePendules).masse * facteur;
 
 	if(masse < MASSE_MAX && masse > MASSE_MIN)
 		{
-		(*systeme).masse = masse;
+		(*systemePendules).masse = masse;
 		do
 			{
 			penduleChangeMasse(&(iter->pendule), facteur);
 			iter=iter->suivant;
 			}
-		while(iter!=(*systeme).premier);
+		while(iter!=(*systemePendules).premier);
 		}
 	else
 		{
 		printf("Masse limite atteinte\n");
 		}
 
-	printf("Masse = %6.3f\n", (*systeme).masse);
+	printf("Masse = %6.3f\n", (*systemePendules).masse);
 
 	return;
 	}
 
-void changeDissipation(systemeT * systeme, float facteur)
+void changeDissipation(systemePendulesT * systemePendules, float facteur)
 	{// Multiplie la dissipation par facteur
 	chaineT *iter;
-	iter = (*systeme).premier;
+	iter = (*systemePendules).premier;
 
-	float dissipation = (*systeme).dissipation * facteur;
-	float dissipationMaximale = DISSIPATION_MAX_DT/(*systeme).moteurs.dt;
+	float dissipation = (*systemePendules).dissipation * facteur;
+	float dissipationMaximale = DISSIPATION_MAX_DT/(*systemePendules).moteurs.dt;
 
 	if(dissipation < dissipationMaximale && dissipation > DISSIPATION_MIN)
 		{
 		if(facteur!=0.0)
 			{
-			(*systeme).dissipation = (*systeme).dissipation * facteur;
+			(*systemePendules).dissipation = (*systemePendules).dissipation * facteur;
 			}
 
 		do
@@ -136,7 +136,7 @@ void changeDissipation(systemeT * systeme, float facteur)
 			penduleChangeDissipation(&(iter->pendule), facteur);
 			iter=iter->suivant;
 			}
-		while(iter!=(*systeme).premier);
+		while(iter!=(*systemePendules).premier);
 		}
 	else
 		{
@@ -144,15 +144,15 @@ void changeDissipation(systemeT * systeme, float facteur)
 		}
 
 
-	printf("Dissipation = %6.3f\n", (*systeme).dissipation);
+	printf("Dissipation = %6.3f\n", (*systemePendules).dissipation);
 
 	return;
 	}
 
-void changeFormeDissipation(systemeT * systeme, int forme)
+void changeFormeDissipation(systemePendulesT * systemePendules, int forme)
 	{// initialise une dissipation nulle(0), uniforme(1) ou extremite absorbante(2)
 	chaineT *iter;
-	iter=(*systeme).premier;
+	iter=(*systemePendules).premier;
 	float dissipation = 0.99;
 
 	if ( forme == 0 )
@@ -160,13 +160,13 @@ void changeFormeDissipation(systemeT * systeme, int forme)
 
 	if (  forme == 1 )
 		{
-		if ( (*systeme).dissipation != 0.0 )
+		if ( (*systemePendules).dissipation != 0.0 )
 			{
-			dissipation = (*systeme).dissipation;
+			dissipation = (*systemePendules).dissipation;
 			}
 		else
 			{
-			(*systeme).dissipation = dissipation;
+			(*systemePendules).dissipation = dissipation;
 			}
 		}
 
@@ -176,10 +176,10 @@ void changeFormeDissipation(systemeT * systeme, int forme)
 			{
 			dissipation = iter->pendule.dissipation;
 			}
-		penduleInitialiseAlpha(&(iter->pendule), dissipation, (*systeme).moteurs.dt);
+		penduleInitialiseAlpha(&(iter->pendule), dissipation, (*systemePendules).moteurs.dt);
 		iter=iter->suivant;
 		}
-	while(iter!=(*systeme).premier);
+	while(iter!=(*systemePendules).premier);
 
 	if ( forme == 2 )
 		{
@@ -194,10 +194,10 @@ void changeFormeDissipation(systemeT * systeme, int forme)
 	return;
 	}
 
-void changeConditionsLimites(systemeT * systeme, int libreFixe)
+void changeConditionsLimites(systemePendulesT * systemePendules, int libreFixe)
 	{
-	(*systeme).libreFixe=libreFixe;
-	printf("libreFixe = %d, ", (*systeme).libreFixe);
+	(*systemePendules).libreFixe=libreFixe;
+	printf("libreFixe = %d, ", (*systemePendules).libreFixe);
 
 	switch(libreFixe)
 		{
@@ -218,33 +218,33 @@ void changeConditionsLimites(systemeT * systeme, int libreFixe)
 			break;
 		}
 
-	changeLimite(systeme);
+	changeLimite(systemePendules);
 
 	return;
 	}
 
-void changeLimite(systemeT * systeme)
+void changeLimite(systemePendulesT * systemePendules)
 	{// Change le couplage du dernier pendule
 	float couplage=0.0;
-	if ((*systeme).libreFixe==0 || (*systeme).libreFixe==2)
+	if ((*systemePendules).libreFixe==0 || (*systemePendules).libreFixe==2)
 		{
-		couplage=(*systeme).couplage;
+		couplage=(*systemePendules).couplage;
 		}
 
-	penduleInitialiseKapa(&(*systeme).premier->precedent->pendule, couplage, (*systeme).moteurs.dt);
+	penduleInitialiseKapa(&(*systemePendules).premier->precedent->pendule, couplage, (*systemePendules).moteurs.dt);
 
 	printf("Couplage dernier = %6.3f\n", couplage);
 
 	return;
 	}
 
-void changeDephasage(systemeT * systeme, float dephasage)
+void changeDephasage(systemePendulesT * systemePendules, float dephasage)
 	{
-	float nouveau = (*systeme).premier->pendule.dephasage + dephasage;
+	float nouveau = (*systemePendules).premier->pendule.dephasage + dephasage;
 
 	if(nouveau>(-DEPHASAGE_MAX) && nouveau<DEPHASAGE_MAX)
 		{
-		penduleAjouteDephasage(&(*systeme).premier->pendule, dephasage);
+		penduleAjouteDephasage(&(*systemePendules).premier->pendule, dephasage);
 		}
 	else
 		{
@@ -252,7 +252,7 @@ void changeDephasage(systemeT * systeme, float dephasage)
 		}
 	
 	
-	printf("Dephasage premier = %6.3f\n", (*systeme).premier->pendule.dephasage);
+	printf("Dephasage premier = %6.3f\n", (*systemePendules).premier->pendule.dephasage);
 
 	return;
 	}

@@ -38,6 +38,7 @@ termes.
 #include "stdio.h"
 #include "stdlib.h"
 #include <assert.h>
+#include <time.h>
 
 //#define PI 3.14159265358979323846264338327950288419716939937510582
 //#define PI 3.1415926535897932384626433832795
@@ -48,10 +49,8 @@ termes.
 
 	//	PARAMÈTRES GRAPHIQUES
 
-#define LARGEUR 958 // Largeur de la fenêtre
-#define FENETRE_X LARGEUR // Largeur de la fenêtre
-#define HAUTEUR 589 // Hauteur de la fenêtre
-#define FENETRE_Y HAUTEUR // Hauteur de la fenêtre
+#define FENETRE_X 958 // Largeur de la fenêtre
+#define FENETRE_Y 589 // Hauteur de la fenêtre
 
 #define BOUTON_COMMANDES 17 // Nombres de petits boutons
 #define ROTATIF_COMMANDES 5 // Nombre de boutons rotatifs
@@ -64,7 +63,7 @@ termes.
 #define RATIO_R_MIN 0.21 // Ratio Distance minimal
 #define RATIO_R_MAX 0.99 // Ratio Distance maximal
 
-#define TAILLE 8 // Diamètre des masses
+#define TAILLE_MASSE 8 // Diamètre des masses
 
 
 
@@ -73,6 +72,7 @@ termes.
 #define TEMPS_AFFICHAGE 110 // Durée entre les affichages en ms
 
 #define DUREE_MAX 599 // Nombre maximal d'incrémentation du système entre deux affichages.
+//#define DUREE_MAX 99 // Nombre d'itération du système par affichage dans SiGP2
 
 #define DT_MIN 0.000003 // Discrétisation minimal du temps
 #define DT 0.0003
@@ -89,7 +89,7 @@ termes.
 #define DEPHASAGE_MAX 49*DEUXPI // Déphasage maximal
 
 
-	//	PARAMÈTRES PHYSIQUES
+	//	PARAMÈTRES  CHAINE ET CORDE
 
 #define COUPLAGE_MAX 99 // Couplage maximal / nombre de pendule
 #define COUPLAGE_MIN 0.003
@@ -112,5 +112,25 @@ termes.
 
 #define JOSEPHSON_MAX 91	//	Valeur maximale de l'amplitude du courant josephson
 #define JOSEPHSON_MIN 0.00007	//	Valeur minimale de l'amplitude du courant josephson
+
+
+	//	PARAAMÈTRES  THERMODYNAMIQUES
+
+#define ALEATOIRE 77 // Taille du tableau de nombre aléatoire
+
+#define NOMBRE_PARTICULES 149 // Nombre de particules
+#define TAILLE_PARTICULE_MAX 19 // Taille maximale des particules
+#define TAILLE_PARTICULE 5 // Taille des particules
+//#define IMPACT 1 // Influence des chocs avec les parois
+
+
+#define LARGEUR_THERMO 790 // Largeur de la fenêtre
+#define HAUTEUR_THERMO 395 // Hauteur de la fenêtre
+#define MARGE 49 // Marge fenêtre-montage
+
+#define DEMI_TROU 7 // Trou dans la cloison, sur 2
+
+#define TEMPERATURE_MAX 19666.1 // Température maximale
+#define TEMPERATURE_MIN 0.0000003 // Température minimale
 
 #endif

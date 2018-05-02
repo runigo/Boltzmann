@@ -32,7 +32,7 @@ termes.
 #ifndef _OBSERVABLE_
 #define _OBSERVABLE_
 
-#include "systeme.h"
+#include "systemePendules.h"
 
 typedef struct ObservableT observableT;
 	struct ObservableT
@@ -47,12 +47,12 @@ double observablesEnergieGravitationPendul(penduleT * pendule, float dt);
 double observablesEnergieHarmoniquePendul(penduleT * pendule, float dt);
 double observablesEnergieCouplagePendul(penduleT * pendule, penduleT * suivant, float dt);
 
-double observablesEnergieCinetiqueSystem(systemeT * systeme);
-double observablesEnergieGravitationSystem(systemeT * systeme);
-double observablesEnergieHarmoniqueSystem(systemeT * systeme);
-double observablesEnergieCouplageSystem(systemeT * systeme);
+double observablesEnergieCinetiqueSystem(systemePendulesT * systemePendules);
+double observablesEnergieGravitationSystem(systemePendulesT * systemePendules);
+double observablesEnergieHarmoniqueSystem(systemePendulesT * systemePendules);
+double observablesEnergieCouplageSystem(systemePendulesT * systemePendules);
 
-void observablesAfficheEnergie(systemeT * systeme);
-//double ecartCinetique(systemeT * systeme);
+void observablesAfficheEnergie(systemePendulesT * systemePendules);
+//double ecartCinetique(systemePendulesT * systemePendules);
 
 #endif
