@@ -104,7 +104,7 @@ termes.
 #define DISSIPATION_MAX_DT 0.00999	//	Valeur maximale
 #define DISSIPATION_MIN 0.00003	//	Valeur minimale
 
-#define FREQUENCE_MAX 9123	//	Valeur maximale de la fréquence du moteur
+#define FREQUENCE_MAX 911	//	Valeur maximale de la fréquence du moteur
 #define FREQUENCE_MIN 0.007	//	Valeur minimale de la fréquence du moteur
 
 #define AMPLITUDE_MAX 91	//	Valeur maximale de l'amplitude du moteur

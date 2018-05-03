@@ -45,23 +45,23 @@ int projectionSystemeCommandes(systemePendulesT * systemePendules, projectionT *
 
 				//	Projection sur les boutons rotatifs
 	theta = DEUXPI * (*systemePendules).couplage/(COUPLAGE_MAX * (*systemePendules).nombre);
-	(*commandes).rotatifPositionX[0]=(int)(ratioRotatif*(*commandes).rotatifX*sin(theta)); //	Couplage
+	(*commandes).rotatifPositionX[0]=(int)(-ratioRotatif*(*commandes).rotatifX*sin(theta)); //	Couplage
 	(*commandes).rotatifPositionY[0]=(int)(ratioRotatif*(*commandes).rotatifY*cos(theta)); //	Couplage
 
 	theta = DEUXPI * (*systemePendules).dissipation/DISSIPATION_MAX;
-	(*commandes).rotatifPositionX[1]=(int)(ratioRotatif*(*commandes).rotatifX*sin(theta));
+	(*commandes).rotatifPositionX[1]=(int)(-ratioRotatif*(*commandes).rotatifX*sin(theta));
 	(*commandes).rotatifPositionY[1]=(int)(ratioRotatif*(*commandes).rotatifY*cos(theta));
 
-	theta = DEUXPI * (*systemePendules).moteurs.courant/JOSEPHSON_MAX;	//	josephson
-	(*commandes).rotatifPositionX[2]=(int)(ratioRotatif*(*commandes).rotatifX*sin(theta));
+	theta = DEUXPI * (*systemePendules).moteurs.courant/JOSEPHSON_MAX;	//	Amplitude du moteur josephson
+	(*commandes).rotatifPositionX[2]=(int)(-ratioRotatif*(*commandes).rotatifX*sin(theta));
 	(*commandes).rotatifPositionY[2]=(int)(ratioRotatif*(*commandes).rotatifY*cos(theta));
 
-	theta = DEUXPI * (*systemePendules).moteurs.amplitude/AMPLITUDE_MAX;	//	Amplitude du moteurs
-	(*commandes).rotatifPositionX[3]=(int)(ratioRotatif*(*commandes).rotatifX*sin(theta));
+	theta = DEUXPI * log(1+(*systemePendules).moteurs.amplitude/AMPLITUDE_MAX);	//	Amplitude du moteur périodique
+	(*commandes).rotatifPositionX[3]=(int)(-ratioRotatif*(*commandes).rotatifX*sin(theta));
 	(*commandes).rotatifPositionY[3]=(int)(ratioRotatif*(*commandes).rotatifY*cos(theta));
 
-	theta = DEUXPI * (*systemePendules).moteurs.frequence/FREQUENCE_MAX;	//	Fréquence du moteurs
-	(*commandes).rotatifPositionX[4]=(int)(ratioRotatif*(*commandes).rotatifX*sin(theta));
+	theta = DEUXPI * log(1+(*systemePendules).moteurs.frequence/FREQUENCE_MAX);	//	Fréquence du moteurs
+	(*commandes).rotatifPositionX[4]=(int)(-ratioRotatif*(*commandes).rotatifX*sin(theta));
 	(*commandes).rotatifPositionY[4]=(int)(ratioRotatif*(*commandes).rotatifY*cos(theta));
 
 		//int rotatifPositionX[ROTATIF_COMMANDES]; // Position du bouton rotatif

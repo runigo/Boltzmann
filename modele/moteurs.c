@@ -64,6 +64,7 @@ float moteurJaugeZero(moteursT * moteur)
 			// Normalise la phase et le chrono
 	if((*moteur).phi > DEUXPI)
 		{
+	//moteursAffiche(moteur);
 		do
 			{
 			//printf("(*moteur).phi = %f\n",(*moteur).phi);
@@ -76,6 +77,7 @@ float moteurJaugeZero(moteursT * moteur)
 		{
 			if((*moteur).phi < - DEUXPI)
 			{
+	//moteursAffiche(moteur);
 			do
 				{
 				//printf("(*moteur).phi = %f\n",(*moteur).phi);
@@ -89,6 +91,8 @@ float moteurJaugeZero(moteursT * moteur)
 	float phase = (*moteur).frequence * (*moteur).chrono;
 	if(phase > DEUXPI)
 		{
+	//moteursAffiche(moteur);
+		moteursAfficheHorloge(moteur);
 		do
 			{
 			//printf("(*moteur).frequence * (*moteur).chrono = %f\n",phase);
@@ -99,6 +103,8 @@ float moteurJaugeZero(moteursT * moteur)
 	else 
 		{
 		if(phase < - DEUXPI)
+	//moteursAffiche(moteur);
+		moteursAfficheHorloge(moteur);
 			{
 			do
 				{
@@ -109,6 +115,7 @@ float moteurJaugeZero(moteursT * moteur)
 			}
 		}
 
+	//moteursAffiche(moteur);
 	return 0;
 	}
 
