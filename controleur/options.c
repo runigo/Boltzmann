@@ -34,14 +34,27 @@ termes.
 void optionsDt(optionsT * options, char *opt);
 //void optionsEquation(optionsT * options, char *opt);
 void optionsFond(optionsT * options, char *opt);
-void optionsSupport(optionsT * options, char *opt);
-void optionsNombre(optionsT * options, char *opt);
 void optionsPause(optionsT * options, char *opt);
-void optionsSoliton(optionsT * options, char *opt);
 void optionsModePause(optionsT * options, char *opt);
 void optionsModeDemo(optionsT * options, char *opt);
 void optionsModeClavier(optionsT * options, char *opt);
 void optionsDuree(optionsT * options, char *opt);
+
+void optionsModeMenu(optionsT * options, int menu);	// Option menu : 0, SiCP : 1, SiCF : 2, SiGP : 3
+
+void optionsEquation(optionsT * options, char *opt);
+
+void optionsSupport(optionsT * options, char *opt);
+void optionsNombre(optionsT * options, char *opt);
+void optionsSoliton(optionsT * options, char *opt);
+
+void optionsTemperature(optionsT * options, char *opt);
+void optionsGauche(optionsT * options, char *opt);
+void optionsDroite(optionsT * options, char *opt);
+void optionsThermostat(optionsT * options, char *opt);
+void optionsCloison(optionsT * options, char *opt);
+void optionsTrou(optionsT * options, char *opt);
+
 void optionsAide();
 
 int optionsTraitement(optionsT * options, int nb, char *opt[])
@@ -55,28 +68,47 @@ int optionsTraitement(optionsT * options, int nb, char *opt[])
 		if(strcmp(opt[i], "fond")==0 && opt[i+1]!=NULL)
 			optionsFond(options, opt[i+1]);  // Couleur du fond 
 		if(strcmp(opt[i], "modePause")==0 && opt[i+1]!=NULL)
-			optionsModePause(options, opt[i+1]);  // Mode -1 : Wait, 1 : Poll
+			optionsModePause(options, opt[i+1]);  // Mode système en pause
 		if(strcmp(opt[i], "modeDemo")==0 && opt[i+1]!=NULL)
 			optionsModeDemo(options, opt[i+1]);  // 0 : SiCP, 1 Graphique démo, 2 Commande démo
 		if(strcmp(opt[i], "modeClavier")==0 && opt[i+1]!=NULL)
 			optionsModeClavier(options, opt[i+1]);  // 1 : SiCP, 1 Graphique démo, 2 Commande démo
-		if(strcmp(opt[i], "pause")==0 && opt[i+1]!=NULL)
-			optionsPause(options, opt[i+1]);	// temps de pause en ms
 		if(strcmp(opt[i], "duree")==0 && opt[i+1]!=NULL)
 			optionsDuree(options, opt[i+1]);	// Nombre d'évolution du système entre les affichages
 
+		if(strcmp(opt[i], "pendules")==0 || strcmp(opt[i], "pendule")==0 || strcmp(opt[i], "chaine")==0 || strcmp(opt[i], "sicp")==0)
+			optionsModeMenu(options, 1);	// Démarre SiCP
+		if(strcmp(opt[i], "corde")==0 || strcmp(opt[i], "fourier")==0 || strcmp(opt[i], "sicf")==0)
+			optionsModeMenu(options, 2);	// Démarre SiCF
+		if(strcmp(opt[i], "thermo")==0 || strcmp(opt[i], "gaz")==0 || strcmp(opt[i], "thermique")==0 || strcmp(opt[i], "sigp")==0)
+			optionsModeMenu(options, 3);	// Démarre SiGP
+
+			// OPTIONS SiCP
+		if(strcmp(opt[i], "dt")==0 && opt[i+1]!=NULL)
+			optionsDt(options, opt[i+1]);	// discrétisation du temps
+		if(strcmp(opt[i], "nombre")==0 && opt[i+1]!=NULL)
+			optionsNombre(options, opt[i+1]);  // Nombre de pendules
+		if(strcmp(opt[i], "equation")==0 && opt[i+1]!=NULL)
+			optionsEquation(options, opt[i+1]);	// choix de l'équation
+		if(strcmp(opt[i], "soliton")==0 && opt[i+1]!=NULL)
+			optionsSoliton(options, opt[i+1]);	// Nombre initial de solitons
 		if(strcmp(opt[i], "support")==0 && opt[i+1]!=NULL)
 			optionsSupport(options, opt[i+1]);	// Avec ou sans support
 
-		//if(strcmp(opt[i], "equation")==0 && opt[i+1]!=NULL)
-			//optionsEquation(options, opt[i+1]);	// choix de l'équation
-		if(strcmp(opt[i], "dt")==0 && opt[i+1]!=NULL)
-			optionsDt(options, opt[i+1]);	// discrétisation du temps
+			// OPTIONS SiGP
+		if(strcmp(opt[i], "thermostat")==0 && opt[i+1]!=NULL)
+			optionsThermostat(options, opt[i+1]);	// Activation du thermostat, 0 : système isolé.
+		if(strcmp(opt[i], "temperature")==0 && opt[i+1]!=NULL)
+			optionsTemperature(options, opt[i+1]);	// Température initiale.
+		if(strcmp(opt[i], "gauche")==0 && opt[i+1]!=NULL)
+			optionsGauche(options, opt[i+1]);	// Température thermostat gauche.
+		if(strcmp(opt[i], "droite")==0 && opt[i+1]!=NULL)
+			optionsDroite(options, opt[i+1]);	// Température thermostat droit.
+		if(strcmp(opt[i], "cloison")==0 && opt[i+1]!=NULL)
+			optionsCloison(options, opt[i+1]);	// Activation cloison centrale.
+		if(strcmp(opt[i], "trou")==0 && opt[i+1]!=NULL)
+			optionsTrou(options, opt[i+1]);	// Trou dans la cloison centrale.
 
-		if(strcmp(opt[i], "nombre")==0 && opt[i+1]!=NULL)
-			optionsNombre(options, opt[i+1]);  // Nombre de pendules
-		if(strcmp(opt[i], "soliton")==0 && opt[i+1]!=NULL)
-			optionsSoliton(options, opt[i+1]);	// Nombre initial de solitons
 
 		if(strcmp(opt[i], "aide")==0)
 			optionsAide();	// Affiche l'aide.
@@ -158,7 +190,6 @@ void optionsEquation(optionsT * options, char *opt)
 	return;
 	}
 
-
     	// Couleur du fond 
 void optionsFond(optionsT * options, char *opt)
 	{
@@ -179,7 +210,9 @@ void optionsFond(optionsT * options, char *opt)
     	// Temps de pause en ms après affichage graphique
 void optionsPause(optionsT * options, char *opt)
 	{
-	int pause = atof(opt);
+	(void)options;
+	(void)opt;
+	/*int pause = atof(opt);
 	if(pause>5 || pause<555)
 		{
 		(*options).pause = pause;
@@ -189,7 +222,7 @@ void optionsPause(optionsT * options, char *opt)
 		{
 		printf("Option pause non valide, pause = %d\n", (*options).pause);
 		printf("	option pause : 5 < pause < 555\n");
-		}
+		}*/
 	return;
 	}
 
@@ -223,6 +256,22 @@ void optionsModePause(optionsT * options, char *opt)
 		{
 		printf("Option modePause non valide, modePause = %d\n", (*options).modePause);
 		printf("	option modePause : modePause = + ou - 1\n");
+		}
+	return;
+	}
+
+		// 0 : menu, 1 SiCP, 2 : SiCF, 3 : SiGP
+void optionsModeMenu(optionsT * options, int menu)
+	{
+	if(menu==0 || menu==1 || menu==2 || menu==3)
+		{
+		(*options).modeMenu = menu;
+		printf("Option modeMenu valide, modeMenu = %d\n", (*options).modeMenu);
+		}
+	else
+		{
+		printf("Option modeMenu non valide, modeMenu = %d\n", (*options).modeMenu);
+		printf("	option modeMenu : modeMenu = 0, 1, 2 ou 3\n");	// 0 : menu, 1 SiCP, 2 SiCF, 3 SiGP
 		}
 	return;
 	}
@@ -273,6 +322,105 @@ void optionsDuree(optionsT * options, char *opt)
 		{
 		printf("Option duree non valide, duree = %d\n", (*options).duree);
 		printf("	option duree : 0 < duree < %d\n", DUREE_MAX);
+		}
+	return;
+	}
+
+
+			// OPTIONS SiGP
+
+void optionsTemperature(optionsT * options, char *opt)
+	{    	// Température initiale
+	float temperature = atof(opt);
+	if(temperature>TEMPERATURE_MIN && temperature<TEMPERATURE_MAX)
+		{
+		(*options).temperature = temperature;
+		printf("Option temperature valide, température initiale = %6.3f\n", (*options).temperature);
+		}
+	else
+		{
+		printf("Option temperature non valide, température = %6.3f\n", (*options).temperature);
+		printf("Option temperature : %6.3f < temperature < %6.3f\n", TEMPERATURE_MIN, TEMPERATURE_MAX);
+		}
+	return;
+	}
+
+void optionsGauche(optionsT * options, char *opt)
+	{    	// Température initiale à gauche
+	float gauche = atof(opt);
+	if(gauche>TEMPERATURE_MIN && gauche<TEMPERATURE_MAX)
+		{
+		(*options).gauche = gauche;
+		printf("Option gauche valide, température thermostat gauche = %6.3f\n", (*options).gauche);
+		}
+	else
+		{
+		printf("Option gauche non valide, gauche = %6.3f\n", (*options).gauche);
+		printf("Option gauche : %6.3f < gauche < %6.3f\n", TEMPERATURE_MIN, TEMPERATURE_MAX);
+		}
+	return;
+	}
+
+void optionsDroite(optionsT * options, char *opt)
+	{    	// Température initiale à droite
+	float droite = atof(opt);
+	if(droite>TEMPERATURE_MIN && droite<TEMPERATURE_MAX)
+		{
+		(*options).droite = droite;
+		printf("Option droite valide, température thermostat droite = %6.3f\n", (*options).droite);
+		}
+	else
+		{
+		printf("Option droite non valide, droite = %6.3f\n", (*options).droite);
+		printf("Option droite : %6.3f < droite < %6.3f\n", TEMPERATURE_MIN, TEMPERATURE_MAX);
+		}
+	return;
+	}
+
+void optionsThermostat(optionsT * options, char *opt)
+	{		// choix du thermostat
+	int thermostat = atoi(opt);
+	if(thermostat > -3 && thermostat < 3)
+		{
+		(*options).thermostat = thermostat;
+		printf("Option thermostat valide, thermostat = %d\n", (*options).thermostat);
+		}
+	else
+		{
+		printf("Option thermostat non valide, thermostat = %d\n", (*options).thermostat);
+		printf("Option thermostat : -3 < thermostat < 3\n");
+		}
+	return;
+	}
+
+void optionsCloison(optionsT * options, char *opt)
+	{
+	int cloison = atoi(opt);
+	if(cloison > -3 && cloison <3)
+		{
+		(*options).cloison = cloison;
+		printf("Option cloison valide, cloison = %d\n", (*options).cloison);
+		}
+	else
+		{
+		printf("Option cloison non valide, cloison = %d\n", (*options).cloison);
+		printf("Option cloison : -3 < cloison < 3\n");
+		}
+	return;
+	}
+
+void optionsTrou(optionsT * options, char *opt)
+	{
+	int trou = atoi(opt);
+	if(trou > -1 && trou < (HAUTEUR_THERMO-MARGE)/2+1)
+		{
+		(*options).trou = trou;
+		printf("Option trou valide, trou = %d\n", (*options).trou);
+		}
+	else
+		{
+		printf("Option trou non valide, trou = %d\n", (*options).trou);
+		printf("Option trou : 0 <= trou < %d\n", DEMI_TROU);
 		}
 	return;
 	}

@@ -342,7 +342,7 @@ int controleurClavier(controleurT * controleur)
 			//changeConditionsLimites(&(*controleur).systemePendules, 3); // libre fixe
 			break;
 		case SDLK_n:
-			changeConditionsLimites(&(*controleur).systemePendules, 4); // fixe libre
+			changeConditionsLimites(&(*controleur).systemePendules, 3); // fixe libre
 			break;
 
 

@@ -48,6 +48,7 @@ int donneesControleur(controleurT * controleur)
 	(*controleur).sortie = 0;	// Sortie de SiCP si <> 0
 	(*controleur).appui = 0;	// Appuie sur la souris
 	(*controleur).modeClavier = 1;	//	1 : commande de la chaîne, 2 : Graphisme, 3 : Sauvegarde
+	(*controleur).modeMenu = (*controleur).options.modeMenu;		// 0 : Menu, 1 SiCP, 2 SiGP
 
 		fprintf(stderr, " Initialisation du système\n");
 	donneesSysteme(&(*controleur).systemePendules, &(*controleur).options);
@@ -103,22 +104,32 @@ int donneesOptions(optionsT * options)
 
 	(*options).modeDemo = 1;		// 0 : SiCP, 1 Graphique démo, 2 Commande démo
 	(*options).modeClavier = 1;		// 0 : SiCP, 1 Graphique démo, 2 Commande démo
+	(*options).modeMenu = 0;		// 0 : SiCP, 1 Graphique démo, 2 Commande démo
 
 	(*options).modePause = 1;		// avec ou sans attente
 	(*options).duree = 91;		// 100 : temps réèl.
 	(*options).fond=240;		// couleur du fond de l'affichage
+
+			// OPTIONS SiCP
+	(*options).dt=0.0003;		// discrétisation du temps
+							// 25 images par seconde, SDL_Delay(30);
+							// dt*duree = 0.004
+	(*options).soliton=3;
 	(*options).support=1;		// Support de la chaîne
 	(*options).nombre=133;		// nombre de pendule
 	(*options).equation=1;		// 1 : pendule, 2 : linéarisation,
 							//	 3 : corde, 4 : dioptre
 
-	(*options).dt=0.0003;		// discrétisation du temps
-							// 25 images par seconde, SDL_Delay(30);
-							// dt*duree = 0.004
-	(*options).pause=5;		// temps de pause SDL en ms
+			// OPTIONS SiGP
+	(*options).temperature = 8.9;	// Température initiale
+	(*options).gauche = 0.00333;	// Température thermostat gauche
+	(*options).droite = 33.3;	// Température thermostat droit
 
-	(*options).soliton=3;
-							
+	(*options).thermostat=0;	// 0 : système isolé, 1 : système thermostaté.
+	(*options).cloison = 1;		// 0 : pas de paroi centrale. 1 : détente de joule, 2 : cloison fermé,
+					//	 -1, -2 : démon de maxwell.
+	(*options).trou = DEMI_TROU;
+
 	return 0;
 	}
 

@@ -47,24 +47,9 @@ typedef struct MontageT montageT;
 		int demiLargeur; // Demi largeur = (LARGEUR_THERMO-MARGE)/2
 		int demiHauteur; // Demi hauteur = (HAUTEUR_THERMO-MARGE)/2
 
-
 		int trou ; // Taille du trou = TROU
-		//int epaisseur; // Epaisseur de la cloison
 
 		int paroiCentrale; // 0 : pas de paroi centrale, 1 : Cloison, 2 : Maxwell. 
-/*
-		int pDROITE; //2*LARGEUR_THERMO Paroi droite
-		int pINFERIEUR;//2*HAUTEUR_THERMO Paroi inférieur
-
-		int pTROUplus;//(HAUTEUR_THERMO+TROU)/2 Paroi
-		int pTROUmoins;//(HAUTEUR_THERMO-TROU)/2 Paroi
-
-		int pCENTRE;//LARGEUR_THERMO/2 aroi centrale
-		int pCENTREdroit;// = LARGEUR_THERMO/2 + TAILLE Paroi centrale
-		int pCENTREgauche;// = LARGEUR_THERMO/2 - TAILLE Paroi centrale
-		int pCENTREdroitDouble;//Paroi centrale droit
-		int pCENTREgaucheDouble;//Paroi centrale gauche
-*/
 		};
 
 //void montageInitialise(montageT * montage);

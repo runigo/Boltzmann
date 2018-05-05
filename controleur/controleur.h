@@ -47,6 +47,8 @@ typedef struct ControleurT controleurT;
 
 		systemePendulesT systemePendules;	//	Modélisation physique de la chaîne
 
+		systemePendulesT systemeThermo;	//	Modélisation physique du gaz
+
 		projectionT projection;	//	Paramètre de la projection
 
 		grapheT graphe;		//	Graphe de la chaîne
@@ -66,6 +68,8 @@ typedef struct ControleurT controleurT;
 		int curseurY;	//	Position y de la souris.
 
 		int modeClavier;//	1 : commande de la chaîne, 2 : Graphisme, 3 : Sauvegarde
+
+		int modeMenu;		// 0 : Menu, 1 SiCP, 2 SiGP
 
 		};
 
