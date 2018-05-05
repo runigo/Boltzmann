@@ -33,6 +33,8 @@ termes.
 #define _OBSERVABLE_
 
 #include "systemePendules.h"
+#include "systemeCorde.h"
+#include "systemeThermo.h"
 
 typedef struct ObservableT observableT;
 	struct ObservableT
@@ -42,17 +44,25 @@ typedef struct ObservableT observableT;
 
 		};
 
-double observablesEnergieCinetiquePendul(penduleT * pendule, float dt);
-double observablesEnergieGravitationPendul(penduleT * pendule, float dt);
-double observablesEnergieHarmoniquePendul(penduleT * pendule, float dt);
-double observablesEnergieCouplagePendul(penduleT * pendule, penduleT * suivant, float dt);
+double observablesEnergieCinetiquePendule(penduleT * pendule, float dt);
+double observablesEnergieGravitationPendule(penduleT * pendule, float dt);
+double observablesEnergieHarmoniquePendule(penduleT * pendule, float dt);
+double observablesEnergieCouplagePendule(penduleT * pendule, penduleT * suivant, float dt);
 
-double observablesEnergieCinetiqueSystem(systemePendulesT * systemePendules);
-double observablesEnergieGravitationSystem(systemePendulesT * systemePendules);
-double observablesEnergieHarmoniqueSystem(systemePendulesT * systemePendules);
-double observablesEnergieCouplageSystem(systemePendulesT * systemePendules);
+double observablesEnergieCinetiqueSystemePendules(systemePendulesT * systemePendules);
+double observablesEnergieGravitationSystemePendules(systemePendulesT * systemePendules);
+double observablesEnergieHarmoniqueSystemePendules(systemePendulesT * systemePendules);
+double observablesEnergieCouplageSystemePendules(systemePendulesT * systemePendules);
+void observablesAfficheEnergiesystemePendules(systemePendulesT * systemePendules);
 
-void observablesAfficheEnergie(systemePendulesT * systemePendules);
+double observablesEnergieCinetiqueSystemeCorde(systemeCordeT * systemeCorde);
+double observablesEnergieGravitationSystemeCorde(systemeCordeT * systemeCorde);
+double observablesEnergieHarmoniqueSystemeCorde(systemeCordeT * systemeCorde);
+double observablesEnergieCouplageSystemeCorde(systemeCordeT * systemeCorde);
+
+void observablesAfficheEnergiesystemeCorde(systemeCordeT * systemeCorde);
+
+void  observablesAfficheEnergie(systemePendulesT * systemePendules);
 //double ecartCinetique(systemePendulesT * systemePendules);
 
 #endif

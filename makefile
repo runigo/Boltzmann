@@ -38,8 +38,8 @@ OBJDIR = ./obj
 
 all : $(EXEC)
 
-$(EXEC) : $(OBJDIR)/principale.o $(OBJDIR)/options.o $(OBJDIR)/donnees.o $(OBJDIR)/controleur.o $(OBJDIR)/projection.o $(OBJDIR)/menu.o $(OBJDIR)/graphique.o $(OBJDIR)/observables.o $(OBJDIR)/graphe.o $(OBJDIR)/commandes.o $(OBJDIR)/horloge.o $(OBJDIR)/interface.o $(OBJDIR)/point.o $(OBJDIR)/vecteur.o $(OBJDIR)/change.o $(OBJDIR)/systemePendules.o $(OBJDIR)/moteurs.o $(OBJDIR)/chaine.o $(OBJDIR)/pendule.o $(OBJDIR)/systemeThermo.o $(OBJDIR)/thermostat.o $(OBJDIR)/mobile.o $(OBJDIR)/montage.o $(OBJDIR)/vecteur2D.o $(OBJDIR)/aleatoire.o
-	$(CC) -g $(OBJDIR)/principale.o $(OBJDIR)/options.o $(OBJDIR)/donnees.o $(OBJDIR)/controleur.o $(OBJDIR)/projection.o $(OBJDIR)/menu.o $(OBJDIR)/graphique.o $(OBJDIR)/observables.o $(OBJDIR)/graphe.o $(OBJDIR)/commandes.o $(OBJDIR)/horloge.o $(OBJDIR)/interface.o $(OBJDIR)/point.o $(OBJDIR)/vecteur.o $(OBJDIR)/change.o $(OBJDIR)/systemePendules.o $(OBJDIR)/moteurs.o $(OBJDIR)/chaine.o $(OBJDIR)/pendule.o $(OBJDIR)/systemeThermo.o $(OBJDIR)/thermostat.o $(OBJDIR)/mobile.o $(OBJDIR)/montage.o $(OBJDIR)/vecteur2D.o $(OBJDIR)/aleatoire.o `sdl2-config --libs` $(LDFLAGS) -o $(EXEC)
+$(EXEC) : $(OBJDIR)/principale.o $(OBJDIR)/options.o $(OBJDIR)/donnees.o $(OBJDIR)/controleur.o $(OBJDIR)/projection.o $(OBJDIR)/menu.o $(OBJDIR)/graphique.o $(OBJDIR)/observables.o $(OBJDIR)/graphe.o $(OBJDIR)/commandes.o $(OBJDIR)/horloge.o $(OBJDIR)/interface.o $(OBJDIR)/point.o $(OBJDIR)/vecteur.o $(OBJDIR)/change.o $(OBJDIR)/systemePendules.o $(OBJDIR)/systemeCorde.o $(OBJDIR)/fourier.o $(OBJDIR)/moteurs.o $(OBJDIR)/chaine.o $(OBJDIR)/pendule.o $(OBJDIR)/systemeThermo.o $(OBJDIR)/thermostat.o $(OBJDIR)/mobile.o $(OBJDIR)/montage.o $(OBJDIR)/vecteur2D.o $(OBJDIR)/aleatoire.o
+	$(CC) -g $(OBJDIR)/principale.o $(OBJDIR)/options.o $(OBJDIR)/donnees.o $(OBJDIR)/controleur.o $(OBJDIR)/projection.o $(OBJDIR)/menu.o $(OBJDIR)/graphique.o $(OBJDIR)/observables.o $(OBJDIR)/graphe.o $(OBJDIR)/commandes.o $(OBJDIR)/horloge.o $(OBJDIR)/interface.o $(OBJDIR)/point.o $(OBJDIR)/vecteur.o $(OBJDIR)/change.o $(OBJDIR)/systemePendules.o $(OBJDIR)/systemeCorde.o $(OBJDIR)/fourier.o $(OBJDIR)/moteurs.o $(OBJDIR)/chaine.o $(OBJDIR)/pendule.o $(OBJDIR)/systemeThermo.o $(OBJDIR)/thermostat.o $(OBJDIR)/mobile.o $(OBJDIR)/montage.o $(OBJDIR)/vecteur2D.o $(OBJDIR)/aleatoire.o `sdl2-config --libs` $(LDFLAGS) -o $(EXEC)
 
 $(OBJDIR)/principale.o : controleur/principale.c controleur/principale.h
 	$(CC) -c -g controleur/principale.c $(CFLAGS) -o $@
@@ -88,6 +88,12 @@ $(OBJDIR)/change.o : modele/change.c modele/change.h
 
 $(OBJDIR)/systemePendules.o : modele/systemePendules.c modele/systemePendules.h
 	$(CC) -c -g modele/systemePendules.c $(CFLAGS) -o $@
+
+$(OBJDIR)/systemeCorde.o : modele/systemeCorde.c modele/systemeCorde.h
+	$(CC) -c -g modele/systemeCorde.c $(CFLAGS) -o $@
+
+$(OBJDIR)/fourier.o : modele/fourier.c modele/fourier.h
+	$(CC) -c -g modele/fourier.c $(CFLAGS) -o $@
 
 $(OBJDIR)/moteurs.o : modele/moteurs.c modele/moteurs.h
 	$(CC) -c -g modele/moteurs.c $(CFLAGS) -o $@

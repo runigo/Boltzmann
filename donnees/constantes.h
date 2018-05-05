@@ -89,6 +89,15 @@ termes.
 #define DEPHASAGE_MAX 49*DEUXPI // Déphasage maximal
 
 
+	//	PARAMÈTRES  DE LA CORDE
+
+#define N 1024			//	nombre de pendule = puissance de 2
+#define Ne N/2			//	zone de calcul de la TF
+
+#define MOYENNE_MAX 2.3 // Moyenne maximale
+	// Utilisé dans systemeJauge(systeme * system)
+	// normalise la moyenne du système à zéro
+
 	//	PARAMÈTRES  CHAINE ET CORDE
 
 #define COUPLAGE_MAX 99 // Couplage maximal / nombre de pendule
@@ -107,14 +116,14 @@ termes.
 #define FREQUENCE_MAX 911	//	Valeur maximale de la fréquence du moteur
 #define FREQUENCE_MIN 0.007	//	Valeur minimale de la fréquence du moteur
 
-#define AMPLITUDE_MAX 91	//	Valeur maximale de l'amplitude du moteur
-#define AMPLITUDE_MIN 0.007	//	Valeur minimale de l'amplitude du moteur
+#define AMPLITUDE_MAX 7.7	//	Valeur maximale de l'amplitude du moteur
+#define AMPLITUDE_MIN 0.07	//	Valeur minimale de l'amplitude du moteur
 
-#define JOSEPHSON_MAX 91	//	Valeur maximale de l'amplitude du courant josephson
-#define JOSEPHSON_MIN 0.00007	//	Valeur minimale de l'amplitude du courant josephson
+#define JOSEPHSON_MAX 27.7	//	Valeur maximale de l'amplitude du courant josephson
+#define JOSEPHSON_MIN 0.07	//	Valeur minimale de l'amplitude du courant josephson
 
 
-	//	PARAAMÈTRES  THERMODYNAMIQUES
+	//	PARAMÈTRES  THERMODYNAMIQUES
 
 #define ALEATOIRE 77 // Taille du tableau de nombre aléatoire
 
