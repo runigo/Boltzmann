@@ -31,11 +31,19 @@ termes.
 
 #include "projection.h"
 
+float projectionAbsolue(float valeur);
+
 int projectionPerspectiveChaine(projectionT * projection, grapheT * graphe);
 int projectionSystemeChaine3D(systemePendulesT * systemePendules, projectionT * projection, grapheT * graphe);
 
 int projectionInitialiseSupport(projectionT * projection, int nombre);
 int projectionPerspectiveSupport(projectionT * projection, grapheT * graphe);
+
+float projectionAbsolue(float valeur)
+	{
+	if(valeur<0) return -valeur;
+	return valeur;
+	}
 
 int projectionSystemeCommandes(systemePendulesT * systemePendules, projectionT * projection, commandesT * commandes)
 	{		// Projette le système sur les commandes
@@ -52,7 +60,7 @@ int projectionSystemeCommandes(systemePendulesT * systemePendules, projectionT *
 	(*commandes).rotatifPositionX[1]=(int)(-ratioRotatif*(*commandes).rotatifX*sin(theta));
 	(*commandes).rotatifPositionY[1]=(int)(ratioRotatif*(*commandes).rotatifY*cos(theta));
 
-	theta = DEUXPI * (*systemePendules).moteurs.courant/JOSEPHSON_MAX;	//	Amplitude du moteur josephson
+	theta = DEUXPI * projectionAbsolue((*systemePendules).moteurs.courant/JOSEPHSON_MAX);	//	Amplitude du moteur josephson
 	(*commandes).rotatifPositionX[2]=(int)(-ratioRotatif*(*commandes).rotatifX*sin(theta));
 	(*commandes).rotatifPositionY[2]=(int)(ratioRotatif*(*commandes).rotatifY*cos(theta));
 

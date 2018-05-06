@@ -58,7 +58,7 @@ termes.
 #define RATIO_H_L 0.436 // Ratio Hauteur sur Largeur de la chaîne
 //#define RATIO_C_X 0.491 // Ratio Centrage X Sans Menu
 //#define RATIO_C_Y 0.751 // Ratio Centrage Y Sans Menu
-#define RATIO_C_X 0.391 // Ratio Centrage X Avec Menu
+#define RATIO_C_X 0.399 // Ratio Centrage X Avec Menu
 #define RATIO_C_Y 0.851 // Ratio Centrage Y Avec Menu
 #define RATIO_R_MIN 0.21 // Ratio Distance minimal
 #define RATIO_R_MAX 0.99 // Ratio Distance maximal
@@ -82,6 +82,7 @@ termes.
 
 	//	PARAMÈTRES DE LA CHAINE
 
+#define ABSORPTION 2.1 // Facteur de l'extrémité absorbante
 #define NOMBRE_MIN 2 // Nombre minimal de pendules
 #define NOMBRE_MAX 399 // Nombre maximal de pendules
 
@@ -109,9 +110,8 @@ termes.
 #define MASSE_MAX 7777
 #define MASSE_MIN 0.7
 
-#define DISSIPATION_MAX 333	//	Coeficient de frottement visqueux
-#define DISSIPATION_MAX_DT 0.00999	//	Valeur maximale
-#define DISSIPATION_MIN 0.00003	//	Valeur minimale
+#define DISSIPATION_MAX 33	//	Coeficient de frottement visqueux maximal
+#define DISSIPATION_MIN 0.0003	//	Valeur minimale
 
 #define FREQUENCE_MAX 911	//	Valeur maximale de la fréquence du moteur
 #define FREQUENCE_MIN 0.007	//	Valeur minimale de la fréquence du moteur

@@ -596,9 +596,9 @@ int controleurCommandes(controleurT * controleur, int zone)
 			case 10:
 				moteursChangeJosephson(&(*controleur).systemePendules.moteurs,-1.0);break; // 367	Gauche
 			case 11:
-				moteursChangeGenerateur(&(*controleur).systemePendules.moteurs, -1);break; // 421	Arrêt
+				moteursChangeGenerateur(&(*controleur).systemePendules.moteurs, 0);break; // 421	Arrêt
 			case 12:
-				moteursChangeGenerateur(&(*controleur).systemePendules.moteurs, -1);break; // 449	Sinus
+				moteursChangeGenerateur(&(*controleur).systemePendules.moteurs, 1);break; // 449	Sinus
 			case 13:
 				moteursChangeGenerateur(&(*controleur).systemePendules.moteurs, 2);break; // 481	Carré
 			case 14:

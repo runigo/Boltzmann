@@ -67,7 +67,7 @@ int donneesControleur(controleurT * controleur)
 		//fprintf(stderr, "projectionInitialiseCouleurs\n");
 	projectionInitialiseCouleurs(&(*controleur).projection, 222, 111, 222, 255);// r, v, b, fond
 		//fprintf(stderr, "projectionInitialiseLongueurs\n");
-	projectionInitialiseLongueurs(&(*controleur).projection, FENETRE_Y/3, FENETRE_X*0.7, 0.61);// hauteur, largeur, ratio de distance
+	projectionInitialiseLongueurs(&(*controleur).projection, FENETRE_Y/3, FENETRE_X*0.7, 0.57);// hauteur, largeur, ratio de distance
 		//fprintf(stderr, "projectionInitialisePointDeVue\n");
 	projectionInitialisePointDeVue(&(*controleur).projection, PI/2 - 0.27, PI/2 + 0.21);//r=facteur de distance, psi, phi
 	//projectionInitialisePointDeVue(&(*controleur).projection, 3*FENETRE_X, 0.0, 0.0);//r, psi, phi
@@ -142,7 +142,7 @@ int donneesSysteme(systemePendulesT * systemePendules, optionsT * options)
 
 	(*systemePendules).moteurs.chrono = 0.0;
 
-	(*systemePendules).moteurs.courant=15.0;		// Mémoire courant Josephson si = 0
+	(*systemePendules).moteurs.courant=3.0;		// Mémoire courant Josephson si = 0
 	(*systemePendules).moteurs.josephson=-3*(*options).dt*(*options).dt;
 
 	(*systemePendules).moteurs.generateur = 0;	// éteint, sinus, carre, impulsion

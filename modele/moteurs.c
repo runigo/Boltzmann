@@ -92,7 +92,7 @@ float moteurJaugeZero(moteursT * moteur)
 	if(phase > DEUXPI)
 		{
 	//moteursAffiche(moteur);
-		moteursAfficheHorloge(moteur);
+		//moteursAfficheHorloge(moteur);
 		do
 			{
 			//printf("(*moteur).frequence * (*moteur).chrono = %f\n",phase);
@@ -104,7 +104,7 @@ float moteurJaugeZero(moteursT * moteur)
 		{
 		if(phase < - DEUXPI)
 	//moteursAffiche(moteur);
-		moteursAfficheHorloge(moteur);
+		//moteursAfficheHorloge(moteur);
 			{
 			do
 				{
@@ -231,20 +231,34 @@ void moteursChangeJosephson(moteursT * moteur, float facteur)
 			}
 		else
 		{
-		float courant = (*moteur).josephson * facteur / (*moteur).dt / (*moteur).dt;
-		if(courant < 0) courant = -courant;
-		if(courant < JOSEPHSON_MAX && courant > JOSEPHSON_MIN)
+		//float courant = (*moteur).josephson * facteur / (*moteur).dt / (*moteur).dt;
+		float courant = (*moteur).courant * facteur;
+		float  signe = 1.0;
+		if(courant < 0) { courant = -courant; signe = -1.0; }
+
+		if(courant > JOSEPHSON_MAX)
 			{
-			(*moteur).josephson = ((*moteur).josephson) * facteur;
-			(*moteur).courant = ((*moteur).courant) * facteur;
+			(*moteur).josephson = signe * JOSEPHSON_MAX * (*moteur).dt * (*moteur).dt;
+			(*moteur).courant = signe * JOSEPHSON_MAX;
+			printf("Courant Josephson limite atteint. ");
 			}
 		else
 			{
-			printf("Courant Josephson limite atteint. ");
+			if(courant < JOSEPHSON_MIN)
+				{
+				(*moteur).josephson = signe * JOSEPHSON_MIN * (*moteur).dt * (*moteur).dt;
+				(*moteur).courant = signe * JOSEPHSON_MIN;
+				printf("Courant Josephson limite atteint. ");
+				}
+			else
+				{
+				(*moteur).josephson = ((*moteur).josephson) * facteur;
+				(*moteur).courant = ((*moteur).courant) * facteur;
+				}
 			}
 		}
-
-	printf("Courant Josephson = %6.3f\n", (*moteur).josephson / (*moteur).dt / (*moteur).dt);
+	//printf("Courant Josephson /dt /dt = %6.3f\n", (*moteur).josephson / (*moteur).dt / (*moteur).dt);
+	printf("Courant Josephson = %6.3f\n", (*moteur).courant);
 
 	return;
 	}

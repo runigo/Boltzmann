@@ -122,9 +122,9 @@ void changeDissipation(systemePendulesT * systemePendules, float facteur)
 	iter = (*systemePendules).premier;
 
 	float dissipation = (*systemePendules).dissipation * facteur;
-	float dissipationMaximale = DISSIPATION_MAX_DT/(*systemePendules).moteurs.dt;
+	//float dissipationMaximale = DISSIPATION_MAX_DT/(*systemePendules).moteurs.dt;
 
-	if(dissipation < dissipationMaximale && dissipation > DISSIPATION_MIN)
+	if(dissipation < DISSIPATION_MAX && dissipation > DISSIPATION_MIN)
 		{
 		if(facteur!=0.0)
 			{
@@ -174,7 +174,7 @@ void changeFormeDissipation(systemePendulesT * systemePendules, int forme)
 		{
 		if ( forme == 2 )
 			{
-			dissipation = iter->pendule.dissipation;
+			dissipation = iter->pendule.dissipation * (*systemePendules).dissipation;
 			}
 		penduleInitialiseAlpha(&(iter->pendule), dissipation, (*systemePendules).moteurs.dt);
 		iter=iter->suivant;

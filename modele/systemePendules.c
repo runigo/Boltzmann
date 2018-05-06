@@ -112,7 +112,7 @@ void systemePendulesInitialiseLimiteInfini(systemePendulesT * systemePendules)
 
 	for(i=0;i<nombre/6;i++)
 		{
-		iter->pendule.dissipation = 10*((*systemePendules).dissipation)*(1.1-i/(float)(nombre/6));
+		iter->pendule.dissipation = ABSORPTION*(1.001-i/(float)(nombre/6));
 		iter=iter->precedent;
 		}
 
