@@ -163,4 +163,18 @@ int commandeBoutons(commandesT * commandes)
 	return -1;
 	}
 
+int commandeRotatifs(commandesT * commandes)
+	{
+	int i;
+	if((*commandes).rotatifsCentre>(*commandes).sourisGauche && (*commandes).rotatifsCentre<(*commandes).sourisDroite)
+		{
+		for(i=0;i<BOUTON_COMMANDES;i++)
+			{
+			if((*commandes).rotatifCentre[i]>(*commandes).sourisHaut && (*commandes).rotatifCentre[i]<(*commandes).sourisBas)
+				return i;
+			}
+		}
+	return -1;
+	}
+
 //////////////////////////////////////////////////////////////////

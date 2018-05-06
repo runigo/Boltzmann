@@ -66,5 +66,6 @@ typedef struct CommandesT commandesT;
 int commandesInitialiseBoutons(commandesT * commandes, int largeur, int hauteur);
 int commandesInitialiseSouris(commandesT * commandes, int sourisX, int sourisY);
 int commandeBoutons(commandesT * commandes);
+int commandeRotatifs(commandesT * commandes);
 
 #endif

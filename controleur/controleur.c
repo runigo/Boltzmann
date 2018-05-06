@@ -51,6 +51,8 @@ int controleurCommandes(controleurT * controleur, int zone);
 
 int controleurSouris(controleurT * controleur);
 int controleurDefile(controleurT * controleur);
+int controleurDefilePointDeVue(controleurT * controleur);
+int controleurDefileCommandes(controleurT * controleur);
 void controleurBoutonSouris(controleurT * controleur, int appui);
 void controleurAfficheSouris(controleurT * controleur);
 
@@ -211,9 +213,9 @@ int controleurTraiteEvenement(controleurT * controleur)
 		case SDL_QUIT:
 			(*controleur).sortie = 1;break;
 		case SDL_MOUSEWHEEL:
-			sortie = controleurDefile(controleur);break;
+			controleurDefile(controleur);break;
 		case SDL_MOUSEMOTION:
-			sortie = controleurSouris(controleur);break;
+			controleurSouris(controleur);break;
 		case SDL_MOUSEBUTTONDOWN:
 			controleurBoutonSouris(controleur, 1);break;
 		case SDL_MOUSEBUTTONUP:
@@ -628,7 +630,65 @@ int controleurSouris(controleurT * controleur)
 	return (*controleur).sortie;
 	}
 
+int controleurDefileCommandes(controleurT * controleur)
+	{
+	int commande;
+	commande = commandeRotatifs(&(*controleur).commandes);
+
+	if((*controleur).interface.evenement.wheel.y > 0) // scroll up
+		{
+		switch(commande)
+			{
+			case 0:
+				changeCouplage(&(*controleur).systemePendules, 1.1);break;
+			case 1:
+				changeDissipation(&(*controleur).systemePendules, 1.1);break;
+			case 2:
+				moteursChangeJosephson(&(*controleur).systemePendules.moteurs, 1.1);break;
+			case 3:
+				moteursChangeAmplitude(&(*controleur).systemePendules.moteurs, 1.1);break;
+			case 4:
+				moteursChangeFrequence(&(*controleur).systemePendules.moteurs, 1.1);break;
+			default:
+				;
+			}
+		}
+	else if((*controleur).interface.evenement.wheel.y < 0) // scroll down
+		{
+		switch(commande)	
+			{
+			case 0:
+				changeCouplage(&(*controleur).systemePendules, 0.91);break;
+			case 1:
+				changeDissipation(&(*controleur).systemePendules, 0.91);break;
+			case 2:
+				moteursChangeJosephson(&(*controleur).systemePendules.moteurs, 0.91);break;
+			case 3:
+				moteursChangeAmplitude(&(*controleur).systemePendules.moteurs, 0.91);break;
+			case 4:
+				moteursChangeFrequence(&(*controleur).systemePendules.moteurs, 0.91);break;
+			default:
+				;
+			}
+		}
+
+	return 0;
+	}
+
 int controleurDefile(controleurT * controleur)
+	{
+	if((*controleur).commandes.sourisX>(*controleur).commandes.rotatifs)
+		{
+		controleurDefileCommandes(controleur);
+		}
+	else
+		{
+		controleurDefilePointDeVue(controleur);
+		}
+	return 0;
+	}
+
+int controleurDefilePointDeVue(controleurT * controleur)
 	{
 	if((*controleur).interface.evenement.wheel.y > 0) // scroll up
 		{
@@ -660,7 +720,7 @@ int controleurDefile(controleurT * controleur)
 	projectionChangePsi(&(*controleur).projection, 0);
 	projectionChangePhi(&(*controleur).projection, 0);
 
-	return (*controleur).sortie;
+	return 0;
 	}
 
 void controleurBoutonSouris(controleurT * controleur, int appui)
